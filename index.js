@@ -11,7 +11,8 @@ app.get('/', (req, res) => res.render('pages/logIn'));
 
 
 app.post('/game/submit', function (req,res) {
-    //var id = req.body.id;
+    var id = req.body.id;
+    console.log("this is the id tht was passed by post: " + id);
     res.render('pages/game');
 });
 
