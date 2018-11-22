@@ -10,7 +10,7 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) => res.render('pages/logIn'));
 
 
-router.post('/game/submit', function (req,res) {
+app.post('/game/submit', function (req,res) {
     var id = req.body.id;
     res.redirect('pages/game/'+ id);
 });
