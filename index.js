@@ -3,7 +3,9 @@ const path = require('path');
 const PORT = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
 const app = express();
-const io = require('socket.io')(app);
+const http = require('http');
+const server = http.createServer(app);
+const io = require('socket.io').listen(server);
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
@@ -25,4 +27,5 @@ io.on('connection', function (socket) {
     console.log('a user connected');
 });
 
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+//app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+server.listen(PORT);
