@@ -11,8 +11,8 @@ app.get('/', (req, res) => res.render('pages/logIn'));
 
 
 app.post('/game/submit', function (req,res) {
-    var id = req.body.id;
-    res.redirect('pages/game/'+ id);
+    //var id = req.body.id;
+    res.redirect('pages/game/');
 });
 
 
