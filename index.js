@@ -34,6 +34,7 @@ io.on('connection', function (socket) {
      */
     socket.on('join', function(msg){
        socket.join(msg);
+       console.log("the user has joined room:" + msg);
     });
 });
 
