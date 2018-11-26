@@ -25,6 +25,16 @@ app.post('/game/submit', function (req,res) {
 
 io.on('connection', function (socket) {
     console.log('a user connected');
+
+    // the string join differentiates the stings that the client side is sending.
+    // if client msg had a different string: "not join" the server would look fot
+    // socket.on('not join')
+    /**
+     * socket.join joins a room.
+     */
+    socket.on('join', function(msg){
+       socket.join(msg);
+    });
 });
 
 //app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
