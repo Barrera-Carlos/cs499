@@ -33,10 +33,10 @@ io.on('connection', function (socket) {
      * socket.join joins a room.
      */
     socket.on('join', function(msg){
-        let newMsg = 'this is not working';
-       socket.join(newMsg);
-       console.log("the user has joined room:" + newMsg);
-       console.log("the original msg is:" + msg);
+       socket.join(msg);
+       let roomSize = io.nsps['/'].adapter.rooms[msg].length;
+       console.log("the user has connected to room:" + msg);
+       console.log("you are the: " + roomSize + " client");
     });
 });
 
