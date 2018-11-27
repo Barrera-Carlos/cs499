@@ -6,7 +6,6 @@
 
 <body onload = "roomSelect()">
 <p id="room name" hidden><%= roomId %></p>
-<p id="playerNum"></p>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -18,13 +17,14 @@
         let roomNumString = String(roomNumber.textContent);
         socket.emit('join', roomNumString);
 
-        socket.on('join', function (msg) {
-            let playerNumberTag = document.getElementById("playerNum");
-            let msgStringNode = document.createTextNode(String(msg));
-
-            playerNumberTag.appendChild(msgStringNode);
-        });
     }
+
+    socket.on('join', (msg) => {
+        let playerNumberTag = document.createElement("H1");
+        let msgStringNode = document.createTextNode(String(msg));
+
+        playerNumberTag.appendChild(msgStringNode);
+    });
 
 </script>
 </body>
