@@ -33,8 +33,9 @@ io.on('connection', function (socket) {
      * socket.join joins a room.
      */
     socket.on('join', function(msg){
-       socket.join(msg);
-       console.log("the user has joined room:" + msg);
+        let newMsg = 'this is not working';
+       socket.join(newMsg);
+       console.log("the user has joined room:" + newMsg);
     });
 });
 
