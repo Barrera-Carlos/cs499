@@ -19,7 +19,10 @@
         socket.emit('join', roomNumString);
 
         socket.on('join', function (msg) {
-            $('#playerNum').text(msg);
+            let playerNumberTag = document.getElementById("playerNum");
+            let msgStringNode = document.createTextNode(String(msg));
+
+            playerNumberTag.appendChild(msgStringNode);
         });
     }
 
