@@ -4,7 +4,7 @@
     <% include ../partials/header.ejs %>
 </head>
 
-<body onload = "roomSelect(<%= roomId %>)">
+<body onload = "roomSelect('myRoom')">
 <p>You have joined room: <%= roomId %></p>
 
 <script src="/socket.io/socket.io.js"></script>
