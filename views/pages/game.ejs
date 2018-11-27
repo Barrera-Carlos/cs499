@@ -19,7 +19,7 @@
         socket.emit('join', roomNumString);
 
         socket.on('join', function (msg) {
-            $('#playerNum').append(msg);
+            $('#playerNum').text(msg);
         });
     }
 
