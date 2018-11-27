@@ -36,6 +36,7 @@ io.on('connection', function (socket) {
         let newMsg = 'this is not working';
        socket.join(newMsg);
        console.log("the user has joined room:" + newMsg);
+       console.log("the original msg is:" + msg);
     });
 });
 
