@@ -37,6 +37,7 @@ io.on('connection', function (socket) {
        let roomSize = io.nsps['/'].adapter.rooms[msg].length;
        console.log("the user has connected to room:" + msg);
        console.log("you are the: " + roomSize + " client");
+       socket.emit(roomSize);
     });
 });
 
