@@ -4,16 +4,17 @@
     <% include ../partials/header.ejs %>
 </head>
 
-<body onload = "roomSelect('myRoom')">
-<p>You have joined room: <%= roomId %></p>
+<body onload = "roomSelect()">
+<p id="room name" hidden><%= roomId %></p>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
     const socket = io();
 
-    function roomSelect(roomNumber){
-        let roomNumString = String(roomNumber);
+    function roomSelect(){
+        var roomNumber = document.getElementById("room name");
+        let roomNumString = String(roomNumber.textContent);
         socket.emit('join', roomNumString);
     }
 
