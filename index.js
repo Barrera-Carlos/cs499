@@ -38,7 +38,7 @@ io.on('connection', function (socket) {
        console.log("the user has connected to room:" + msg);
        console.log("you are the: " + roomSize + " client");
 
-        socket.emit('join',"room size");
+        socket.emit('join',roomSize);
     });
 });
 
