@@ -20,7 +20,7 @@
     }
 
     socket.on('join', (msg) => {
-        document.getElementById("room name").innerHTML = "this is being called";
+        document.getElementById("room name").innerHTML = String(msg);
     });
 
 </script>
