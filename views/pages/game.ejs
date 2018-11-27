@@ -13,7 +13,8 @@
     const socket = io();
 
     function roomSelect(roomNumber){
-        socket.emit('join', roomNumber);
+        let roomNumString = String(roomNumber);
+        socket.emit('join', roomNumString);
     }
 
 </script>
