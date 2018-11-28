@@ -12,19 +12,31 @@
 <script>
     const socket = io();
     let roomNumber;
+    let playerName;
 
+    function printPlayerName() {
+        document.getElementById("room name").innerHTML = String(playerName);
+    }
+
+    function createPlayer (){
+        playerName = "taty";
+        printPlayerName();
+    }
 
     function roomSelect(){
         let roomNumber = document.getElementById("room name");
         let roomNumString = String(roomNumber.textContent);
         socket.emit('join', roomNumString);
+        createPlayer();
 
     }
 
     socket.on('join', (msg) => {
         roomNumber = msg;
         document.getElementById("room name").innerHTML = String(msg);
+
     });
+
 
 </script>
 </body>
