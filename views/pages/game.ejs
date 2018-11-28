@@ -27,7 +27,7 @@
         let roomNumber = document.getElementById("room name");
         let roomNumString = String(roomNumber.textContent);
         socket.emit('join', roomNumString);
-        createPlayer();
+
 
     }
 
@@ -35,6 +35,7 @@
         roomNumber = msg;
         document.getElementById("room name").innerHTML = String(msg);
 
+        createPlayer();
     });
 
 
