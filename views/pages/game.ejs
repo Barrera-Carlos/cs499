@@ -6,16 +6,16 @@
 
 <body onload = "roomSelect()">
 <p id="room name" ><%= roomId %></p>
-<p id="module test"> not working </p>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
     const socket = io();
-    var roomNumber;
+    let roomNumber;
+
 
     function roomSelect(){
-        var roomNumber = document.getElementById("room name");
+        let roomNumber = document.getElementById("room name");
         let roomNumString = String(roomNumber.textContent);
         socket.emit('join', roomNumString);
 
@@ -24,7 +24,6 @@
     socket.on('join', (msg) => {
         roomNumber = msg;
         document.getElementById("room name").innerHTML = String(msg);
-        document.getElementById('module test').innerHTML = modTest;
     });
 
 </script>
