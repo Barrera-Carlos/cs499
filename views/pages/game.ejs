@@ -6,11 +6,14 @@
 
 <body onload = "roomSelect()">
 <p id="room name" ><%= roomId %></p>
+<p id="module test"> not working </p>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
     const socket = io();
+    var roomNumber;
+    const modTest = require('moduleTest');
 
     function roomSelect(){
         var roomNumber = document.getElementById("room name");
@@ -20,7 +23,9 @@
     }
 
     socket.on('join', (msg) => {
+        roomNumber = msg;
         document.getElementById("room name").innerHTML = String(msg);
+        document.getElementById('module test').innerHTML = modTest;
     });
 
 </script>
