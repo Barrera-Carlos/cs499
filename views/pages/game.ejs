@@ -11,28 +11,46 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
+
     const socket = io();
     let playerName;
 
-    function printName(){
-        let myArr = createDeck();
-        document.getElementById("testP").innerHTML = String(myArr[1].name);
+    function createDeck(fullDeck) {
 
+        let suitName = ["diamond", "club", "heart", "spade"];
+        var count = 0;
+
+        for (let i = 0; i < 52; i++){
+
+            if((i%13) === 0 && i > 0){
+                count + 1;
+            }
+
+            let card = {
+                number : (i % 13) + 2,
+                suit : suitName[count]
+            }
+
+
+            fullDeck.push(card);
+        }
     }
 
-    function createDeck() {
-        let myObj = { name : "Carlos", sex : "male"};
-        let mySecondObj = { name: "notCarlos", sex : "male"};
-        let myArr = [];
-        myArr.push(myObj);
-        myArr.push(mySecondObj);
+    function shuffleDeck(array) {
+            var currentIndex = array.length, temporaryValue, randomIndex;
 
-        return myArr;
-    }
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
 
-    function deck() {
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
 
-        return createDeck();
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
     }
 
     function createPlayer (playerNum){
@@ -41,6 +59,7 @@
             playerNumber : playerNum,
             isDealer : false,
             roundNumber : 10,
+            fullDeck : [],
             hand: ["test"],
             turnToPlay : false,
             chosenNumOfTricks : 0,
@@ -48,17 +67,28 @@
             totalPoints : 0,
 
             //Methods
+
+            getFullDeck : () => {
+                createDeck(this.fullDeck);
+            },
+
+            /**
+             *  need to decide where new hand is going to come form
+             *  gotm server of obj.
+             * @param newHand
+             */
+
             setHand : (newHand) =>{
                 this.hand = newHand;
-                },
+            },
 
             getHand : () =>{
                 return this.hand;
-                },
+            },
 
             Deal : () =>{
                 //this will be updated once deck function is finished
-                let fullDeck = deck();
+                let fullDeck = shuffleDeck();
             },
 
             playCard : (card) => {
@@ -76,7 +106,6 @@
             gitTotalPointsBonus : (points) => {
                 this.totalPoints += points;
             }
-
         };
     }
 
@@ -93,7 +122,8 @@
         document.getElementById("room name").innerHTML = String(msg);
 
         createPlayer(msg);
-        printName();
+        playerName.getFullDeck();
+
     });
 
 
