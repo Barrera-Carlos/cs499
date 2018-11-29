@@ -6,21 +6,78 @@
 
 <body onload = "roomSelect()">
 <p id="room name" ><%= roomId %></p>
+<p id="testP">test did not work</p>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
     const socket = io();
-    let roomNumber;
     let playerName;
 
-    function printPlayerName() {
-        document.getElementById("room name").innerHTML = String(playerName);
+    function printName(){
+        let myArr = createDeck();
+        document.getElementById("testP").innerHTML = String(myArr[1].name);
+
     }
 
-    function createPlayer (){
-        playerName = "taty";
-        printPlayerName();
+    function createDeck() {
+        let myObj = { name : "Carlos", sex : "male"};
+        let mySecondObj = { name: "notCarlos", sex : "male"};
+        let myArr = [];
+        myArr.push(myObj);
+        myArr.push(mySecondObj);
+
+        return myArr;
+    }
+
+    function deck() {
+
+        return createDeck();
+    }
+
+    function createPlayer (playerNum){
+        playerName = {
+            //Properties
+            playerNumber : playerNum,
+            isDealer : false,
+            roundNumber : 10,
+            hand: ["test"],
+            turnToPlay : false,
+            chosenNumOfTricks : 0,
+            wonTricksInRound : 0,
+            totalPoints : 0,
+
+            //Methods
+            setHand : (newHand) =>{
+                this.hand = newHand;
+                },
+
+            getHand : () =>{
+                return this.hand;
+                },
+
+            Deal : () =>{
+                //this will be updated once deck function is finished
+                let fullDeck = deck();
+            },
+
+            playCard : (card) => {
+                socket.emit('card', card);
+            },
+
+            setTotalPoints : (points) => {
+                this.totalPoints += points;
+            },
+
+            getTotalPoints : () => {
+                return this.totalPoints;
+            },
+
+            gitTotalPointsBonus : (points) => {
+                this.totalPoints += points;
+            }
+
+        };
     }
 
     function roomSelect(){
@@ -32,10 +89,11 @@
     }
 
     socket.on('join', (msg) => {
-        roomNumber = msg;
+        // msg should be tested if its in the correct range of 1-4;
         document.getElementById("room name").innerHTML = String(msg);
 
-        createPlayer();
+        createPlayer(msg);
+        printName();
     });
 
 
