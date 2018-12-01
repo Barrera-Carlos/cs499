@@ -23,7 +23,7 @@
             playerNumber : playerNum,
             isDealer : false,
             roundNumber : 10,
-            fullDeck : [],
+            fullDeck : ["test"],
             hand: ["test"],
             turnToPlay : false,
             chosenNumOfTricks : 0,
@@ -34,7 +34,7 @@
 
             getFullDeck : () => {
 
-                let suitName = ["diamond", "club", "heart", "spade"];
+                var suitName = ["diamond", "club", "heart", "spade"];
                 var count = 0;
 
                 for (let i = 0; i < 52; i++){
@@ -89,17 +89,17 @@
 
                 var firstHand = {
                     userNumber: (this.playerNumber % 4) + 1,
-                    hand : []
+                    pHand : []
                 }
 
                 var secondHand = {
                     userNumber: (this.playerNumber % 4) + 2,
-                    hand : []
+                    pHand : []
                 }
 
                 var thirdHand = {
                     userNumber: (this.playerNumber % 4) + 3,
-                    hand : []
+                    pHand : []
                 }
 
                 for (let i = 51, j = 1 ; i >= (51 - (this.roundNumber * 4)); --i, ++j){
@@ -108,13 +108,13 @@
 
                     switch (handCount) {
                         case (this.playerNumber + 1) % 4:
-                            firstHand.hand.push(this.fullDeck[i]);
+                            firstHand.pHand.push(this.fullDeck[i]);
                             break;
                         case (this.playerNumber + 2) % 4:
-                            secondHand.hand.push(this.fullDeck[i]);
+                            secondHand.pHand.push(this.fullDeck[i]);
                             break;
                         case (this.playerNumber + 3) % 4:
-                            thirdHand.hand.push(this.fullDeck[i]);
+                            thirdHand.pHand.push(this.fullDeck[i]);
                             break;
                         case this.playerNumber % 4:
                             this.hand.push(this.fullDeck[i]);
