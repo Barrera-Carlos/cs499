@@ -125,7 +125,7 @@
                 let array2String = JSON.stringify(secondHand);
                 let array3String = JSON.stringify(thirdHand);
 
-                socket.emit('deal', roomName, array1String, array2String, array3String);
+                socket.emit('deal', array1String);
             },
 
             playCard : (card) => {
@@ -176,10 +176,7 @@
         createPlayer(Number(msg));
         playerName.getFullDeck();
 
-        // card should be once all players (player 4) have joined
-        // so this method should have its on socket.on
-        if (playerName.playerNumber === 1)
-            playerName.deal();
+        playerName.deal();
 
     });
 
