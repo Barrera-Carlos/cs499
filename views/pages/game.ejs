@@ -178,7 +178,8 @@
 
         // card should be once all players (player 4) have joined
         // so this method should have its on socket.on
-        playerName.deal()
+        if (playerName.playerNumber === 1)
+            playerName.deal();
 
     });
 
