@@ -14,44 +14,8 @@
 
     const socket = io();
     let playerName;
+    let roomNumber
 
-    function createDeck(fullDeck) {
-
-        let suitName = ["diamond", "club", "heart", "spade"];
-        var count = 0;
-
-        for (let i = 0; i < 52; i++){
-
-            if((i%13) === 0 && i > 0){
-                count + 1;
-            }
-
-            let card = {
-                number : (i % 13) + 2,
-                suit : suitName[count]
-            }
-
-
-            fullDeck.push(card);
-        }
-    }
-
-    function shuffleDeck(array) {
-            var currentIndex = array.length, temporaryValue, randomIndex;
-
-            // While there remain elements to shuffle...
-            while (0 !== currentIndex) {
-
-                // Pick a remaining element...
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex -= 1;
-
-                // And swap it with the current element.
-                temporaryValue = array[currentIndex];
-                array[currentIndex] = array[randomIndex];
-                array[randomIndex] = temporaryValue;
-            }
-    }
 
     function createPlayer (playerNum){
         playerName = {
@@ -69,7 +33,41 @@
             //Methods
 
             getFullDeck : () => {
-                createDeck(this.fullDeck);
+
+                let suitName = ["diamond", "club", "heart", "spade"];
+                var count = 0;
+
+                for (let i = 0; i < 52; i++){
+
+                    if((i%13) === 0 && i > 0){
+                        count + 1;
+                    }
+
+                    let card = {
+                        number : (i % 13) + 2,
+                        suit : suitName[count]
+                    }
+
+
+                    this.fullDeck.push(card);
+                }
+            },
+
+            shuffleDeck : () => {
+                var currentIndex = this.fullDeck.length, temporaryValue, randomIndex;
+
+                // While there remain elements to shuffle...
+                while (0 !== currentIndex) {
+
+                    // Pick a remaining element...
+                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex -= 1;
+
+                    // And swap it with the current element.
+                    temporaryValue = this.fullDeck[currentIndex];
+                    this.fullDeck[currentIndex] = this.fullDeck[randomIndex];
+                    this.fullDeck[randomIndex] = temporaryValue
+                }
             },
 
             /**
@@ -86,9 +84,48 @@
                 return this.hand;
             },
 
-            Deal : () =>{
-                //this will be updated once deck function is finished
-                let fullDeck = shuffleDeck();
+            deal : () =>{
+                this.shuffleDeck();
+
+                var firstHand = {
+                    userNumber: (this.playerNumber % 4) + 1,
+                    hand : []
+                }
+
+                var secondHand = {
+                    userNumber: (this.playerNumber % 4) + 2,
+                    hand : []
+                }
+
+                var thirdHand = {
+                    userNumber: (this.playerNumber % 4) + 3,
+                    hand : []
+                }
+
+                for (let i = 51, j = 1 ; i >= (51 - (this.roundNumber * 4)); --i, ++j){
+
+                    let handCount = (this.playerNumber + j) % 4;
+
+                    switch (handCount) {
+                        case (this.playerNumber + 1) % 4:
+                            firstHand.hand.push(this.fullDeck[i]);
+                            break;
+                        case (this.playerNumber + 2) % 4:
+                            secondHand.hand.push(this.fullDeck[i]);
+                            break;
+                        case (this.playerNumber + 3) % 4:
+                            thirdHand.hand.push(this.fullDeck[i]);
+                            break;
+                        case this.playerNumber % 4:
+                            this.hand.push(this.fullDeck[i]);
+                    }
+                }
+
+                let array1String = JSON.stringify(firstHand);
+                let array2String = JSON.stringify(secondHand);
+                let array3String = JSON.stringify(thirdHand);
+
+                socket.emit('deal', roomNumber, array1String, array2String, array3String);
             },
 
             playCard : (card) => {
@@ -105,24 +142,43 @@
 
             gitTotalPointsBonus : (points) => {
                 this.totalPoints += points;
+            },
+
+            decRoundNumber : () => {
+                this.roundNumber -= 1;
             }
         };
     }
 
+    /**
+     * this function retrives the poster room name and sends it to
+     * the server
+     */
     function roomSelect(){
-        let roomNumber = document.getElementById("room name");
+        //gets the room name given by logIns.ejs post.
+        roomNumber = document.getElementById("room name");
         let roomNumString = String(roomNumber.textContent);
+
+        //sends room name to the server
         socket.emit('join', roomNumString);
 
 
     }
 
+    /**
+     * after the server receives the room name, it returns the users
+     * room number 1-4.
+     */
     socket.on('join', (msg) => {
         // msg should be tested if its in the correct range of 1-4;
         document.getElementById("room name").innerHTML = String(msg);
 
         createPlayer(msg);
         playerName.getFullDeck();
+
+        // card should be once all players (player 4) have joined
+        // so this method should have its on socket.on
+        playerName.deal()
 
     });
 
