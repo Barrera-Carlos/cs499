@@ -41,9 +41,9 @@ io.on('connection', function (socket) {
         socket.emit('join',roomSize);
     });
 
-    socket.on('deal', (roomNumber, firstHandString, secondHandString, thirdHandString) => {
+    socket.on('deal', function (roomNumber, firstHandString, secondHandString, thirdHandString) {
         console.log(roomNumber + " " + secondHandString);
-    })
+    });
 });
 
 //app.listen(PORT, () => console.log(`Listening on ${ PORT }`));

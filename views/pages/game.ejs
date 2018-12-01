@@ -14,7 +14,7 @@
 
     const socket = io();
     let playerName;
-    let roomNumber
+    let roomName
 
 
     function createPlayer (playerNum){
@@ -125,11 +125,11 @@
                 let array2String = JSON.stringify(secondHand);
                 let array3String = JSON.stringify(thirdHand);
 
-                socket.emit('deal', roomNumber, array1String, array2String, array3String);
+                socket.emit('deal', roomName, array1String, array2String, array3String);
             },
 
             playCard : (card) => {
-                socket.emit('card', card);
+                //socket.emit('card', card);
             },
 
             setTotalPoints : (points) => {
@@ -156,8 +156,8 @@
      */
     function roomSelect(){
         //gets the room name given by logIns.ejs post.
-        roomNumber = document.getElementById("room name");
-        let roomNumString = String(roomNumber.textContent);
+        roomName = document.getElementById("room name");
+        let roomNumString = String(roomName.textContent);
 
         //sends room name to the server
         socket.emit('join', roomNumString);
@@ -171,9 +171,9 @@
      */
     socket.on('join', (msg) => {
         // msg should be tested if its in the correct range of 1-4;
-        document.getElementById("room name").innerHTML = String(msg);
+        document.getElementById("testP").innerHTML = String(msg);
 
-        createPlayer(msg);
+        createPlayer(Number(msg));
         playerName.getFullDeck();
 
         // card should be once all players (player 4) have joined
