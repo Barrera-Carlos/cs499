@@ -41,8 +41,8 @@ io.on('connection', function (socket) {
         socket.emit('join',roomSize);
     });
 
-    socket.on('deal', function (roomNumber, firstHandString, secondHandString, thirdHandString) {
-        console.log(roomNumber + " " + secondHandString);
+    socket.on('deal', function (userNumber) {
+        console.log(userNumber);
     });
 });
 
