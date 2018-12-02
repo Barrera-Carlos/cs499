@@ -87,7 +87,6 @@
             },
 
             deal : () =>{
-                this.shuffleDeck();
 
                 var firstHand = {
                     userNumber: (this.playerNumber % 4) + 1,
@@ -177,6 +176,7 @@
 
         createPlayer(Number(msg));
         playerName.getFullDeck();
+        playerName.shuffleDeck();
 
         playerName.deal();
 
