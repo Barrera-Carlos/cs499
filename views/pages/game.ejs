@@ -37,20 +37,21 @@
                 var suitName = ["diamond", "club", "heart", "spade"];
                 var count = 0;
 
+
                 for (let i = 0; i < 52; i++){
 
                     if((i%13) === 0 && i > 0){
                         count + 1;
                     }
 
-                    let card = {
+                    var card = {
                         number : (i % 13) + 2,
                         suit : suitName[count]
                     }
 
-
                     this.fullDeck.push(card);
                 }
+
             },
 
             shuffleDeck : () => {
