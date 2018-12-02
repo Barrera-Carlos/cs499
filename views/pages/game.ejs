@@ -23,7 +23,7 @@
             playerNumber : playerNum,
             isDealer : false,
             roundNumber : 10,
-            fullDeck : ["test"],
+            fullDeck : null ,
             hand: ["test"],
             turnToPlay : false,
             chosenNumOfTricks : 0,
@@ -36,6 +36,7 @@
 
                 var suitName = ["diamond", "club", "heart", "spade"];
                 var count = 0;
+                this.fullDeck = [];
 
 
                 for (let i = 0; i < 52; i++){
