@@ -20,7 +20,7 @@
     function createPlayer (playerNum){
         playerName = {
             //Properties
-            playerNumber : 1,
+            playerNumber : playerNum,
             isDealer : false,
             roundNumber : 10,
             fullDeck : null ,
@@ -86,38 +86,38 @@
                 return this.hand;
             },
 
-            deal : () =>{
+            deal : (myNumber) =>{
 
                 var firstHand = {
-                    userNumber: (this.playerNumber % 4) + 1,
+                    userNumber: (myNumber % 4) + 1,
                     pHand : []
                 }
 
                 var secondHand = {
-                    userNumber: (this.playerNumber % 4) + 2,
+                    userNumber: (myNumber % 4) + 2,
                     pHand : []
                 }
 
                 var thirdHand = {
-                    userNumber: (this.playerNumber % 4) + 3,
+                    userNumber: (myNumber % 4) + 3,
                     pHand : []
                 }
 
                 for (let i = 51, j = 1 ; i >= (51 - (this.roundNumber * 4)); --i, ++j){
 
-                    let handCount = (this.playerNumber + j) % 4;
+                    let handCount = (myNumber + j) % 4;
 
                     switch (handCount) {
-                        case (this.playerNumber + 1) % 4:
+                        case (myNumber + 1) % 4:
                             firstHand.pHand.push(this.fullDeck[i]);
                             break;
-                        case (this.playerNumber + 2) % 4:
+                        case (myNumber + 2) % 4:
                             secondHand.pHand.push(this.fullDeck[i]);
                             break;
-                        case (this.playerNumber + 3) % 4:
+                        case (myNumber + 3) % 4:
                             thirdHand.pHand.push(this.fullDeck[i]);
                             break;
-                        case this.playerNumber % 4:
+                        case myNumber % 4:
                             this.hand.push(this.fullDeck[i]);
                     }
                 }
@@ -126,7 +126,7 @@
                 let array2String = JSON.stringify(secondHand);
                 let array3String = JSON.stringify(thirdHand);
 
-                socket.emit('deal', JSON.stringify(this.playerNumber));
+                socket.emit('deal', JSON.stringify(myNumber));
             },
 
             playCard : (card) => {
@@ -178,7 +178,7 @@
         playerName.getFullDeck();
         playerName.shuffleDeck();
 
-        playerName.deal();
+        playerName.deal(playerName.playerNumber);
 
     });
 
