@@ -55,8 +55,8 @@
 
             },
 
-            shuffleDeck : () => {
-                var currentIndex = this.fullDeck.length, temporaryValue, randomIndex;
+            shuffleDeck : (myDeck) => {
+                var currentIndex = myDeck.length, temporaryValue, randomIndex;
 
                 // While there remain elements to shuffle...
                 while (0 !== currentIndex) {
@@ -66,9 +66,9 @@
                     currentIndex -= 1;
 
                     // And swap it with the current element.
-                    temporaryValue = this.fullDeck[currentIndex];
-                    this.fullDeck[currentIndex] = this.fullDeck[randomIndex];
-                    this.fullDeck[randomIndex] = temporaryValue
+                    temporaryValue = myDeck[currentIndex];
+                    myDeck[currentIndex] = myDeck[randomIndex];
+                    myDeck[randomIndex] = temporaryValue
                 }
             },
 
@@ -86,7 +86,7 @@
                 return this.hand;
             },
 
-            deal : (myNumber) =>{
+            deal : (myNumber, myDeck) =>{
 
                 var firstHand = {
                     userNumber: (myNumber % 4) + 1,
@@ -103,22 +103,22 @@
                     pHand : []
                 }
 
-                for (let i = 51, j = 1 ; i >= (51 - (this.roundNumber * 4)); --i, ++j){
+                for (let i = 51, j = 1 ; i >= (51 - (myNumber * 4)); --i, ++j){
 
                     let handCount = (myNumber + j) % 4;
 
                     switch (handCount) {
                         case (myNumber + 1) % 4:
-                            firstHand.pHand.push(this.fullDeck[i]);
+                            firstHand.pHand.push(myDeck[i]);
                             break;
                         case (myNumber + 2) % 4:
-                            secondHand.pHand.push(this.fullDeck[i]);
+                            secondHand.pHand.push(myDeck[i]);
                             break;
                         case (myNumber + 3) % 4:
-                            thirdHand.pHand.push(this.fullDeck[i]);
+                            thirdHand.pHand.push(myDeck[i]);
                             break;
                         case myNumber % 4:
-                            this.hand.push(this.fullDeck[i]);
+                            this.hand.push(myDeck[i]);
                     }
                 }
 
@@ -176,9 +176,9 @@
 
         createPlayer(Number(msg));
         playerName.getFullDeck();
-        playerName.shuffleDeck();
+        playerName.shuffleDeck(playerName.fullDeck);
 
-        playerName.deal(playerName.playerNumber);
+        playerName.deal(playerName.playerNumber, playerName.fullDeck);
 
     });
 
