@@ -111,16 +111,16 @@
 
                     switch (handCount) {
                         case (myNumber + 1) % 4:
-                            firstHand.pHand.push(this.fullDeck.length);
+                            firstHand.pHand.push(this.fullDeck[i]);
                             break;
                         case (myNumber + 2) % 4:
-                            secondHand.pHand.push(this.fullDeck.length);
+                            secondHand.pHand.push(this.fullDeck[i]);
                             break;
                         case (myNumber + 3) % 4:
-                            thirdHand.pHand.push(this.fullDeck.length);
+                            thirdHand.pHand.push(this.fullDeck[i]);
                             break;
                         case myNumber % 4:
-                            this.hand.push(this.fullDeck.length);
+                            this.hand.push(this.fullDeck[i]);
                     }
                 }
 
