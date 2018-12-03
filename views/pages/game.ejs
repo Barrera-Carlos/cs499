@@ -24,7 +24,7 @@
             isDealer : false,
             roundNumber : 10,
             fullDeck : null ,
-            hand: ["test"],
+            hand: null,
             turnToPlay : false,
             chosenNumOfTricks : 0,
             wonTricksInRound : 0,
@@ -55,8 +55,8 @@
 
             },
 
-            shuffleDeck : (myDeck) => {
-                var currentIndex = myDeck.length, temporaryValue, randomIndex;
+            shuffleDeck : () => {
+                var currentIndex = this.fullDeck.length, temporaryValue, randomIndex;
 
                 // While there remain elements to shuffle...
                 while (0 !== currentIndex) {
@@ -66,9 +66,9 @@
                     currentIndex -= 1;
 
                     // And swap it with the current element.
-                    temporaryValue = myDeck[currentIndex];
-                    myDeck[currentIndex] = myDeck[randomIndex];
-                    myDeck[randomIndex] = temporaryValue
+                    temporaryValue = this.fullDeck.length[currentIndex];
+                    this.fullDeck.length[currentIndex] = this.fullDeck.length[randomIndex];
+                    this.fullDeck.length[randomIndex] = temporaryValue
                 }
             },
 
@@ -87,6 +87,8 @@
             },
 
             deal : (myNumber, myDeck) =>{
+
+                this.hand = [];
 
                 var firstHand = {
                     userNumber: (myNumber % 4) + 1,
@@ -176,7 +178,7 @@
 
         createPlayer(Number(msg));
         playerName.getFullDeck();
-        playerName.shuffleDeck(playerName.fullDeck);
+        playerName.shuffleDeck();
 
         playerName.deal(playerName.playerNumber, playerName.fullDeck);
 
