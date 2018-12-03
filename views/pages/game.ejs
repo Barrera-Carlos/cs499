@@ -86,7 +86,7 @@
                 return this.hand;
             },
 
-            deal : (myNumber) =>{
+            deal : (myNumber, roundNum) =>{
 
                 this.hand = [];
 
@@ -105,7 +105,7 @@
                     pHand : []
                 }
 
-                for (let i = 51, j = 1 ; i >= (51 - (this.roundNumber * 4)); --i, ++j){
+                for (let i = 51, j = 1 ; i >= (51 - (roundNum * 4)); --i, ++j){
 
                     let handCount = (myNumber + j) % 4;
 
@@ -180,7 +180,7 @@
         playerName.getFullDeck();
         playerName.shuffleDeck();
 
-        playerName.deal(playerName.playerNumber, playerName.fullDeck);
+        playerName.deal(playerName.playerNumber, playerName.roundNumber);
 
     });
 
