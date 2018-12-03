@@ -41,8 +41,11 @@ io.on('connection', function (socket) {
         socket.emit('join',roomSize);
     });
 
-    socket.on('deal', function (userNumber, firstarr) {
-        console.log(userNumber + " " + firstarr);
+    socket.on('deal', function (userNumber, firstArr, secondArr, thirdArr, forthArr) {
+        console.log(userNumber + " " + firstArr);
+        console.log(secondArr);
+        console.log(thirdArr);
+        console.log(forthArr);
     });
 });
 

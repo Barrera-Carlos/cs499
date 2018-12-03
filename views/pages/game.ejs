@@ -105,7 +105,7 @@
                     pHand : []
                 }
 
-                for (let i = 51, j = 1 ; i >= (51 - (roundNum * 4)); --i, ++j){
+                for (let i = 51, j = 1 ; i > (51 - (roundNum * 4)); --i, ++j){
 
                     let handCount = (myNumber + j) % 4;
 
@@ -128,7 +128,8 @@
                 let array2String = JSON.stringify(secondHand);
                 let array3String = JSON.stringify(thirdHand);
 
-                socket.emit('deal', JSON.stringify(myNumber), JSON.stringify(this.hand));
+                socket.emit('deal', JSON.stringify(myNumber), JSON.stringify(this.hand), array1String,
+                array2String, array3String);
             },
 
             playCard : (card) => {
