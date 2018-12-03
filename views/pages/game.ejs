@@ -86,7 +86,7 @@
                 return this.hand;
             },
 
-            deal : (myNumber, myDeck) =>{
+            deal : (myNumber) =>{
 
                 this.hand = [];
 
@@ -111,16 +111,16 @@
 
                     switch (handCount) {
                         case (myNumber + 1) % 4:
-                            firstHand.pHand.push(myDeck[i]);
+                            firstHand.pHand.push(this.fullDeck.length);
                             break;
                         case (myNumber + 2) % 4:
-                            secondHand.pHand.push(myDeck[i]);
+                            secondHand.pHand.push(this.fullDeck.length);
                             break;
                         case (myNumber + 3) % 4:
-                            thirdHand.pHand.push(myDeck[i]);
+                            thirdHand.pHand.push(this.fullDeck.length);
                             break;
                         case myNumber % 4:
-                            this.hand.push(myDeck[i]);
+                            this.hand.push(this.fullDeck.length);
                     }
                 }
 
