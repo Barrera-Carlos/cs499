@@ -40,14 +40,14 @@
                 this.fullDeck = [];
 
 
-                for (let i = 0; i < 52; i++){
+                for (let i = 1; i <= 52; i++){
 
-                    if((i%13) === 0 && i > 0){
-                        count + 1;
+                    if((i%13) === 0){
+                        count += 1;
                     }
 
                     var card = {
-                        number : (i % 13) + 2,
+                        number : (i % 13) + 1,
                         suit : suitName[count]
                     }
 
@@ -131,7 +131,7 @@
                 let array3String = JSON.stringify(thirdHand);
                 let stringTrump = JSON.stringify(trumpCard);
 
-                socket.emit('deal', JSON.stringify(this.playerNumber), JSON.stringify(this.fullDeck), );
+                socket.emit('deal', JSON.stringify(myNumber), JSON.stringify(this.fullDeck));
             }
 
            /* playCard : (card) => {
