@@ -49,12 +49,12 @@ io.on('connection', function (socket) {
 
     socket.on('deal', function (userNumber, fullDeck) {
         console.log(userNumber);
-        console.log(fullDeck);
-        /*console.log(userNumber + " " + firstArr);
+        //console.log(fullDeck);
         console.log(stringTrump);
+        console.log(firstArr);
         console.log(secondArr);
         console.log(thirdArr);
-        console.log(forthArr);*/
+        console.log(forthArr);
     });
 });
 
