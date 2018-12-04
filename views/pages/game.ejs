@@ -157,11 +157,11 @@
      */
     function roomSelect(){
         //gets the room name given by logIns.ejs post.
-        roomName = document.getElementById("room name");
-        let roomNumString = String(roomName.textContent);
+        let roomNameTag = document.getElementById("room name");
+        roomName = String(roomNameTag.textContent);
 
         //sends room name to the server
-        socket.emit('join', roomNumString);
+        socket.emit('join', roomName);
 
 
     }
