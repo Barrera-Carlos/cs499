@@ -15,6 +15,7 @@
     const socket = io();
     let playerName;
     let roomName
+    let trumpCard;
 
 
     function createPlayer (playerNum){
@@ -102,34 +103,39 @@
                     pHand : []
                 }
 
-                for (let i = 51, j = 1 ; i > (51 - (roundNum * 4)); --i, ++j){
+                for (let i = 51, j = 1 ; i >= (51 - (roundNum * 4)); --i, ++j){
 
                     let handCount = (myNumber + j) % 4;
-
-                    switch (handCount) {
-                        case (myNumber + 1) % 4:
-                            firstHand.pHand.push(this.fullDeck[i]);
-                            break;
-                        case (myNumber + 2) % 4:
-                            secondHand.pHand.push(this.fullDeck[i]);
-                            break;
-                        case (myNumber + 3) % 4:
-                            thirdHand.pHand.push(this.fullDeck[i]);
-                            break;
-                        case myNumber % 4:
-                            this.hand.push(this.fullDeck[i]);
+                    if(i !== (51 - (roundNum * 4))){
+                        switch (handCount) {
+                            case (myNumber + 1) % 4:
+                                firstHand.pHand.push(this.fullDeck[i]);
+                                break;
+                            case (myNumber + 2) % 4:
+                                secondHand.pHand.push(this.fullDeck[i]);
+                                break;
+                            case (myNumber + 3) % 4:
+                                thirdHand.pHand.push(this.fullDeck[i]);
+                                break;
+                            case myNumber % 4:
+                                this.hand.push(this.fullDeck[i]);
+                        }
+                    }
+                    else{
+                        trumpCard = this.fullDeck[i];
                     }
                 }
 
                 let array1String = JSON.stringify(firstHand);
                 let array2String = JSON.stringify(secondHand);
                 let array3String = JSON.stringify(thirdHand);
+                let stringTrump = JSON.stringify(trumpCard);
 
                 socket.emit('deal', JSON.stringify(myNumber), JSON.stringify(this.hand), array1String,
-                array2String, array3String);
-            },
+                array2String, array3String, stringTrump);
+            }
 
-            playCard : (card) => {
+           /* playCard : (card) => {
                 //socket.emit('card', card);
             },
 
@@ -147,7 +153,7 @@
 
             decRoundNumber : () => {
                 this.roundNumber -= 1;
-            }
+            }*/
         };
     }
 
