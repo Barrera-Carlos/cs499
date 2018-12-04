@@ -82,9 +82,6 @@
                 this.hand = newHand;
             },
 
-            getHand : () =>{
-                return this.hand;
-            },
 
             deal : (myNumber, roundNum) =>{
 
@@ -178,10 +175,24 @@
         document.getElementById("testP").innerHTML = String(msg);
 
         createPlayer(Number(msg));
+
+        if(playerName.playerNumber === 1)
+            playerName.isDealer = true;
+
         playerName.getFullDeck();
         playerName.shuffleDeck();
 
-        playerName.deal(playerName.playerNumber, playerName.roundNumber);
+
+        socket.emit('startDeal', String(msg), roomName)
+
+
+
+    });
+
+    socket.on('startDeal', (userNumber) => {
+        if(Number(userNumber) === 4 && playerName.isDealer) {
+            playerName.deal(playerName.playerNumber, playerName.roundNumber);
+        }
 
     });
 

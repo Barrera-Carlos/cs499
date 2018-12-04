@@ -41,6 +41,12 @@ io.on('connection', function (socket) {
         socket.emit('join',roomSize);
     });
 
+    socket.on('startDeal', (userNumber, roomName) => {
+        if(userNumber === Number(userNumber)){
+            io.in(roomName).emit(userNumber);
+        }
+    });
+
     socket.on('deal', function (userNumber, firstArr, secondArr, thirdArr, forthArr) {
         console.log(userNumber + " " + firstArr);
         console.log(secondArr);
