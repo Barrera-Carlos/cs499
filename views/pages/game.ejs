@@ -99,10 +99,11 @@
                     pHand : []
                 }
 
-                for (let i = 51, j = 1 ; i >= (51 - (roundNum * 4)); --i, ++j){
+                var handCount;
+                for (let i = 52, j = 1 ; i >= (52 - (roundNum * 4)); --i, ++j){
 
-                    let handCount = (myNumber + j) % 4;
-                    if(i !== (51 - (roundNum * 4))){
+                    handCount = (myNumber + j) % 4;
+
                         switch (handCount) {
                             case (myNumber + 1) % 4:
                                 firstHand.pHand.push(this.fullDeck[i]);
@@ -117,11 +118,8 @@
                                 this.hand.push(this.fullDeck[i]);
                         }
                     }
-                    else{
-                        trumpCard = this.fullDeck[i];
-                    }
-                }
 
+                trumpCard = this.fullDeck[(51 - (roundNum * 4))]
                 let array1String = JSON.stringify(firstHand);
                 let array2String = JSON.stringify(secondHand);
                 let array3String = JSON.stringify(thirdHand);
