@@ -47,12 +47,14 @@ io.on('connection', function (socket) {
         io.in(roomName).emit('startDeal', 1);
     });
 
-    socket.on('deal', function (userNumber, firstArr, secondArr, thirdArr, forthArr, stringTrump) {
-        console.log(userNumber + " " + firstArr);
+    socket.on('deal', function (userNumber, fullDeck) {
+        console.log(userNumber);
+        console.log(fullDeck);
+        /*console.log(userNumber + " " + firstArr);
         console.log(stringTrump);
         console.log(secondArr);
         console.log(thirdArr);
-        console.log(forthArr);
+        console.log(forthArr);*/
     });
 });
 
