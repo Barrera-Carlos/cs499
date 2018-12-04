@@ -125,7 +125,7 @@
                 let array3String = JSON.stringify(thirdHand);
                 let stringTrump = JSON.stringify(trumpCard);
 
-                socket.emit('deal', JSON.stringify(myNumber), stringTrump, array1String, array2String, array3String);
+                socket.emit('deal', JSON.stringify(myNumber), stringTrump, JSON.stringify(this.hand));
             }
 
            /* playCard : (card) => {
