@@ -47,7 +47,7 @@ io.on('connection', function (socket) {
         io.in(roomName).emit('startDeal', 1);
     });
 
-    socket.on('deal', function (userNumber, fullDeck) {
+    socket.on('deal', function (userNumber, stringTrump, firstArr, secondArr, thirdArr, forthArr) {
         console.log(userNumber);
         //console.log(fullDeck);
         console.log(stringTrump);
