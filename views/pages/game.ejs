@@ -183,14 +183,14 @@
         playerName.shuffleDeck();
 
 
-        socket.emit('startDeal', String(msg), roomName)
-
-
+        if(playerName.playerNumber === 4){
+            socket.emit('startDeal', roomName, "all players have connected");
+        }
 
     });
 
-    socket.on('startDeal', (userNumber) => {
-        if(Number(userNumber) === 4 && playerName.isDealer) {
+    socket.on('startDeal', (allConnected) => {
+        if(playerName.isDealer && allConnected) {
             playerName.deal(playerName.playerNumber, playerName.roundNumber);
         }
 

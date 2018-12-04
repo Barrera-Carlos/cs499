@@ -41,10 +41,9 @@ io.on('connection', function (socket) {
         socket.emit('join',roomSize);
     });
 
-    socket.on('startDeal', (userNumber, roomName) => {
-        if(userNumber === Number(userNumber)){
-            io.in(roomName).emit(userNumber);
-        }
+    socket.on('startDeal', (roomName, logString) => {
+        console.log(logString);
+        io.in(roomName).emit(1);
     });
 
     socket.on('deal', function (userNumber, firstArr, secondArr, thirdArr, forthArr) {
