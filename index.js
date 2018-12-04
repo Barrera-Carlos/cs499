@@ -43,7 +43,8 @@ io.on('connection', function (socket) {
 
     socket.on('startDeal', (roomName, logString) => {
         console.log(logString);
-        io.in(roomName).emit(1);
+        console.log(roomName);
+        io.in(roomName).emit('startDeal', 1);
     });
 
     socket.on('deal', function (userNumber, firstArr, secondArr, thirdArr, forthArr) {
