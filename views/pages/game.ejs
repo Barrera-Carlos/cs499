@@ -39,21 +39,17 @@
                 var count = 0;
                 this.fullDeck = [];
 
+                for(count; count < 4; count++) {
 
-                for (let i = 1; i <= 52; i++){
+                    for (let i = 1; i < 13; i++) {
+                        var card = {
+                            number: (i % 13) + 1,
+                            suit: suitName[count]
+                        }
 
-                    if((i%13) === 0){
-                        count += 1;
+                        this.fullDeck.push(card);
                     }
-
-                    var card = {
-                        number : (i % 13) + 1,
-                        suit : suitName[count]
-                    }
-
-                    this.fullDeck.push(card);
                 }
-
             },
 
             shuffleDeck : () => {
