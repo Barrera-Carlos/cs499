@@ -57,19 +57,23 @@
 
     function deal(myNumber) {
 
-        hand = [];
+        var myHand = {
+            userNumber: myNumber,
+            pHand : []
+        }
+
         var firstHand = {
-            userNumber: (myNumber % 4) + 1,
+            userNumber: (myNumber + 1 % 4),
             pHand : []
         }
 
         var secondHand = {
-            userNumber: (myNumber % 4) + 2,
+            userNumber: (myNumber + 2 % 4),
             pHand : []
         }
 
         var thirdHand = {
-            userNumber: (myNumber % 4) + 3,
+            userNumber: (myNumber + 3 % 4),
             pHand : []
         }
 
@@ -89,9 +93,11 @@
                     thirdHand.pHand.push(fullDeck[i]);
                     break;
                 case myNumber % 4:
-                    hand.push(fullDeck[i]);
+                    myHand.push(fullDeck[i]);
             }
         }
+
+
 
         trumpCard = fullDeck[(51 - (round * 4))]
 
@@ -103,7 +109,7 @@
 
         let deltArr = [trumpCardString,firstHandString,secondHandString, thirdHandString, handString];
 
-        socket.emit('deal', JSON.stringify(deltArr));
+        socket.emit('deal', JSON.stringify(deltArr), roomName);
         //socket.emit('deal', JSON.stringify(fullDeck));
     }
 
@@ -162,6 +168,25 @@
             deal(playerName.playerNumber, round);
         }
 
+    });
+
+    socket.on('deal', (jsonDealString) => {
+        let fullDelt = JSON.parse(jsonDealString);
+        for (let i = 0; i < fullDelt.length; i++){
+            if(i === 0){
+                trumpCard = JSON.parse(fullDelt[i]);
+            }
+            else{
+                let deltHand = JSON.parse(fullDelt[i]);
+                if (deltHand.userNumber === 0){
+                    deltHand.userNumber = 4;
+                }
+                if(deltHand.userNumber === playerName.playerNumber){
+                    document.getElementById("testP").innerHTML = "My numhber: " + String(deltHand.userNumber);
+                    hand = deltHand;
+                }
+            }
+        }
     });
 
 

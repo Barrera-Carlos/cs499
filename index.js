@@ -47,17 +47,10 @@ io.on('connection', function (socket) {
         io.in(roomName).emit('startDeal', 1);
     });
 
-    socket.on('deal', function (fullDeck) {
-       console.log(fullDeck);
-    });
+    socket.on('deal', function (fullDeck, roomName) {
+       io.in(roomName).emit('deal', fullDeck);
 
-    /*socket.on('deal', function (dealerHand, firstHand, secondHand, thirdHand, trumpCard) {
-        console.log("DEALER HAND: " + dealerHand);
-        console.log("FIRST HAND: " + firstHand);
-        console.log("SECOND HAND: " + secondHand);
-        console.log("THIRD HAND: " + thirdHand);
-        console.log("TRUMP CARD: " + trumpCard);
-    });*/
+    });
 });
 
 //app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
