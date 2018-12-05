@@ -186,8 +186,8 @@
                 let givenHand = JSON.parse(fullDel[i]);
 
                 if(givenHand.userNumber === playerName.playerNumber){
-
-                    document.getElementById("testP").innerHTML =  JSON.stringify(givenHand.pHand);
+                    hand = JSON.parse(fullDel[i]);
+                    document.getElementById("testP").innerHTML =  JSON.stringify(hand.pHand);
                 }
             }
         }
