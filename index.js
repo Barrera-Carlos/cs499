@@ -47,12 +47,8 @@ io.on('connection', function (socket) {
         io.in(roomName).emit('startDeal', 1);
     });
 
-    socket.on('deal', function (userNumber, stringTrump, myHand) {
-        console.log(userNumber);
-        //console.log(fullDeck);
-        console.log(stringTrump);
-        console.log(myHand);
-
+    socket.on('deal', function (testString) {
+        console.log(testString);
     });
 });
 
