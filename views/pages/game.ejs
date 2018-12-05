@@ -27,9 +27,9 @@
 
         for(count; count < 4; count++) {
 
-            for (let i = 1; i < 13; i++) {
+            for (let i = 1; i < 14; i++) {
                 var card = {
-                    number: (i % 13) + 1,
+                    number: (i % 14) + 1,
                     suit: suitName[count]
                 }
 
@@ -100,8 +100,8 @@
         let stringTrumpString = JSON.stringify(trumpCard);
         let handString = JSON.stringify(hand)
 
-        //socket.emit('deal', handString, firstHandString, secondHandString, thirdHandString, stringTrumpString);
-        socket.emit('deal', JSON.stringify(fullDeck));
+        socket.emit('deal', handString, firstHandString, secondHandString, thirdHandString, stringTrumpString);
+        //socket.emit('deal', JSON.stringify(fullDeck));
     }
 
 
@@ -145,7 +145,7 @@
             playerName.isDealer = true;
 
         createDeck();
-        //shuffleDeck();
+        shuffleDeck();
 
 
         if(playerName.playerNumber === 4){
