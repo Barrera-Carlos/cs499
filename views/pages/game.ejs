@@ -16,137 +16,100 @@
     let playerName;
     let roomName
     let trumpCard;
+    let round = 10;
+    let fullDeck = [];
+    let hand = [];
+
+    function createDeck() {
+        var suitName = ["diamond", "club", "heart", "spade"];
+        var count = 0;
+        fullDeck = [];
+
+        for(count; count < 4; count++) {
+
+            for (let i = 1; i < 13; i++) {
+                var card = {
+                    number: (i % 13) + 1,
+                    suit: suitName[count]
+                }
+
+                fullDeck.push(card);
+            }
+        }
+    }
+
+    function shuffleDeck() {
+        var currentIndex = fullDeck.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = this.fullDeck.length[currentIndex];
+            fullDeck.length[currentIndex] = fullDeck.length[randomIndex];
+            fullDeck.length[randomIndex] = temporaryValue
+        }
+    }
+
+    function deal(myNumber) {
+
+        var firstHand = {
+            userNumber: (myNumber % 4) + 1,
+            pHand : []
+        }
+
+        var secondHand = {
+            userNumber: (myNumber % 4) + 2,
+            pHand : []
+        }
+
+        var thirdHand = {
+            userNumber: (myNumber % 4) + 3,
+            pHand : []
+        }
+
+        var handCount;
+        for (let i = 52, j = 1 ; i >= (52 - (round * 4)); --i, ++j){
+
+            handCount = (myNumber + j) % 4;
+
+            switch (handCount) {
+                case (myNumber + 1) % 4:
+                    firstHand.pHand.push(fullDeck[i]);
+                    break;
+                case (myNumber + 2) % 4:
+                    secondHand.pHand.push(fullDeck[i]);
+                    break;
+                case (myNumber + 3) % 4:
+                    thirdHand.pHand.push(fullDeck[i]);
+                    break;
+                case myNumber % 4:
+                    hand.push(fullDeck[i]);
+            }
+        }
+
+        trumpCard = this.fullDeck[(51 - (round * 4))]
+        let array1String = JSON.stringify(firstHand);
+        let array2String = JSON.stringify(secondHand);
+        let array3String = JSON.stringify(thirdHand);
+        let stringTrump = JSON.stringify(trumpCard);
+
+        socket.emit('deal', JSON.stringify(myNumber), stringTrump, JSON.stringify(hand));
+    }
 
 
     function createPlayer (playerNum){
         playerName = {
-            //Properties
             playerNumber : playerNum,
             isDealer : false,
-            roundNumber : 10,
-            fullDeck : null ,
-            hand: null,
             turnToPlay : false,
             chosenNumOfTricks : 0,
             wonTricksInRound : 0,
             totalPoints : 0,
-
-            //Methods
-
-            getFullDeck : () => {
-
-                var suitName = ["diamond", "club", "heart", "spade"];
-                var count = 0;
-                this.fullDeck = [];
-
-                for(count; count < 4; count++) {
-
-                    for (let i = 1; i < 13; i++) {
-                        var card = {
-                            number: (i % 13) + 1,
-                            suit: suitName[count]
-                        }
-
-                        this.fullDeck.push(card);
-                    }
-                }
-            },
-
-            shuffleDeck : () => {
-                var currentIndex = this.fullDeck.length, temporaryValue, randomIndex;
-
-                // While there remain elements to shuffle...
-                while (0 !== currentIndex) {
-
-                    // Pick a remaining element...
-                    randomIndex = Math.floor(Math.random() * currentIndex);
-                    currentIndex -= 1;
-
-                    // And swap it with the current element.
-                    temporaryValue = this.fullDeck.length[currentIndex];
-                    this.fullDeck.length[currentIndex] = this.fullDeck.length[randomIndex];
-                    this.fullDeck.length[randomIndex] = temporaryValue
-                }
-            },
-
-            /**
-             *  need to decide where new hand is going to come form
-             *  gotm server of obj.
-             * @param newHand
-             */
-
-            setHand : (newHand) =>{
-                this.hand = newHand;
-            },
-
-
-            deal : (myNumber, roundNum) =>{
-
-                this.hand = [];
-
-                var firstHand = {
-                    userNumber: (myNumber % 4) + 1,
-                    pHand : []
-                }
-
-                var secondHand = {
-                    userNumber: (myNumber % 4) + 2,
-                    pHand : []
-                }
-
-                var thirdHand = {
-                    userNumber: (myNumber % 4) + 3,
-                    pHand : []
-                }
-
-                var handCount;
-                for (let i = 52, j = 1 ; i >= (52 - (roundNum * 4)); --i, ++j){
-
-                    handCount = (myNumber + j) % 4;
-
-                        switch (handCount) {
-                            case (myNumber + 1) % 4:
-                                firstHand.pHand.push(this.fullDeck[i]);
-                                break;
-                            case (myNumber + 2) % 4:
-                                secondHand.pHand.push(this.fullDeck[i]);
-                                break;
-                            case (myNumber + 3) % 4:
-                                thirdHand.pHand.push(this.fullDeck[i]);
-                                break;
-                            case myNumber % 4:
-                                this.hand.push(this.fullDeck[i]);
-                        }
-                    }
-
-                trumpCard = this.fullDeck[(51 - (roundNum * 4))]
-                let array1String = JSON.stringify(firstHand);
-                let array2String = JSON.stringify(secondHand);
-                let array3String = JSON.stringify(thirdHand);
-                let stringTrump = JSON.stringify(trumpCard);
-
-                socket.emit('deal', JSON.stringify(myNumber), stringTrump, JSON.stringify(this.hand));
-            }
-
-           /* playCard : (card) => {
-                //socket.emit('card', card);
-            },
-
-            setTotalPoints : (points) => {
-                this.totalPoints += points;
-            },
-
-            getTotalPoints : () => {
-                return this.totalPoints;
-            },
-
-            gitTotalPointsBonus : (points) => {
-                this.totalPoints += points;
-            },
-
-            decRoundNumber : () => {
-                this.roundNumber -= 1;
-            }*/
         };
     }
 
@@ -178,8 +141,8 @@
         if(playerName.playerNumber === 1)
             playerName.isDealer = true;
 
-        playerName.getFullDeck();
-        playerName.shuffleDeck();
+        createDeck();
+        shuffleDeck();
 
 
         if(playerName.playerNumber === 4){
@@ -190,7 +153,7 @@
 
     socket.on('startDeal', (allConnected) => {
         if(playerName.isDealer && allConnected) {
-            playerName.deal(playerName.playerNumber, playerName.roundNumber);
+            deal(playerName.playerNumber, round);
         }
 
     });
