@@ -99,7 +99,7 @@
         let array3String = JSON.stringify(thirdHand);
         let stringTrump = JSON.stringify(trumpCard);
 
-        socket.emit('deal', 'deal not being created');
+        socket.emit('deal', hand, firstHand, secondHand, thirdHand, JSON.stringify(trumpCard));
     }
 
 
@@ -147,7 +147,7 @@
 
 
         if(playerName.playerNumber === 4){
-            socket.emit('startDeal', roomName, "all players have connected", JSON.stringify(fullDeck));
+            socket.emit('startDeal', roomName, "all players have connected");
         }
 
     });

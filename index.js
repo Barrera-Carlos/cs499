@@ -41,15 +41,18 @@ io.on('connection', function (socket) {
         socket.emit('join',roomSize);
     });
 
-    socket.on('startDeal', (roomName, logString, fullD) => {
+    socket.on('startDeal', (roomName, logString) => {
         console.log(logString);
         console.log(roomName);
-        console.log(fullD);
         io.in(roomName).emit('startDeal', 1);
     });
 
-    socket.on('deal', function (testString) {
-        console.log(testString);
+    socket.on('deal', function (dealerHand, firstHand, secondHand, thirdHand, trumpCard) {
+        console.log("DEALER HAND: " + dealerHand);
+        console.log("FIRST HAND: " + firstHand);
+        console.log("SECOND HAND: " + secondHand);
+        console.log("THIRD HAND: " + thirdHand);
+        console.log("TRUMP CARD: " + trumpCard);
     });
 });
 
