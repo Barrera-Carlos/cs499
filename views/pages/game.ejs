@@ -187,7 +187,7 @@
 
                 if(givenHand.userNumber === playerName.playerNumber){
                     hand = JSON.parse(fullDeck[i]);
-                    document.getElementById("testP").innerHTML = hand.pHand[1];
+                    document.getElementById("testP").innerHTML = JSON.stringify(hand.pHand);
                 }
             }
         }
