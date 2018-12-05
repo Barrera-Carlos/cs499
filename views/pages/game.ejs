@@ -58,22 +58,22 @@
     function deal(myNumber) {
 
         var myHand = {
-            userNumber: myNumber,
+            userNumber: 1,
             pHand : []
         }
 
         var firstHand = {
-            userNumber: (myNumber + 1 % 4),
+            userNumber: 2,
             pHand : []
         }
 
         var secondHand = {
-            userNumber: (myNumber + 2 % 4),
+            userNumber: 3,
             pHand : []
         }
 
         var thirdHand = {
-            userNumber: (myNumber + 3 % 4),
+            userNumber: 4,
             pHand : []
         }
 
@@ -172,9 +172,11 @@
 
     socket.on('deal', (jsonDealString) => {
 
-        document.getElementById("testP").innerHTML = jsonDealString;
-        /*let fullDelt = JSON.parse(jsonDealString);
-        for (let i = 0; i < fullDelt.length; i++){
+
+        let fullDel = JSON.parse(jsonDealString);
+        document.getElementById("testP").innerHTML = fullDel;
+
+        /*for (let i = 0; i < fullDelt.length; i++){
             if(i === 0){
                 trumpCard = JSON.parse(fullDelt[i]);
             }
