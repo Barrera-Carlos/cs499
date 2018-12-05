@@ -94,10 +94,16 @@
         }
 
         trumpCard = fullDeck[(51 - (round * 4))]
-        let deltArr = [firstHand, secondHand,thirdHand, hand, trumpCard];
-        let deltArrString = JSON.stringify(deltArr);
 
-        socket.emit('deal', deltArr);
+        let trumpCardString = JSON.stringify(trumpCard);
+        let firstHandString = JSON.stringify(firstHand);
+        let secondHandString = JSON.stringify(secondHand);
+        let thirdHandString = JSON.stringify(thirdHand);
+        let handString = JSON.stringify(hand);
+
+        let deltArr = [trumpCardString,firstHandString,secondHandString, thirdHandString, handString];
+
+        socket.emit('deal', JSON.stringify(deltArr));
         //socket.emit('deal', JSON.stringify(fullDeck));
     }
 
