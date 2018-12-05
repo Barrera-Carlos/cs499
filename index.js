@@ -41,9 +41,10 @@ io.on('connection', function (socket) {
         socket.emit('join',roomSize);
     });
 
-    socket.on('startDeal', (roomName, logString) => {
+    socket.on('startDeal', (roomName, logString, fullD) => {
         console.log(logString);
         console.log(roomName);
+        console.log(fullD);
         io.in(roomName).emit('startDeal', 1);
     });
 

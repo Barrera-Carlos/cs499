@@ -17,8 +17,8 @@
     let roomName
     let trumpCard;
     let round = 10;
-    let fullDeck = [];
-    let hand = [];
+    let fullDeck ;
+    let hand ;
 
     function createDeck() {
         var suitName = ["diamond", "club", "heart", "spade"];
@@ -57,6 +57,7 @@
 
     function deal(myNumber) {
 
+        hand = [];
         var firstHand = {
             userNumber: (myNumber % 4) + 1,
             pHand : []
@@ -146,7 +147,7 @@
 
 
         if(playerName.playerNumber === 4){
-            socket.emit('startDeal', roomName, "all players have connected");
+            socket.emit('startDeal', roomName, "all players have connected", JSON.stringify(fullDeck));
         }
 
     });
