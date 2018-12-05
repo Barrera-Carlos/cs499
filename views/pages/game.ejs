@@ -177,14 +177,15 @@
                 trumpCard = JSON.parse(fullDelt[i]);
             }
             else{
-                let deltHand = JSON.parse(fullDelt[i]);
-                if (deltHand.userNumber === 0){
+                //let deltHand = JSON.parse(fullDelt[i]);
+                document.getElementById("testP").innerHTML = "My numhber: " + String(fullDelt[i]);
+                /*if (deltHand.userNumber === 0){
                     deltHand.userNumber = 4;
                 }
                 if(deltHand.userNumber === playerName.playerNumber){
                     document.getElementById("testP").innerHTML = "My numhber: " + String(deltHand.userNumber);
                     hand = deltHand;
-                }
+                }*/
             }
         }
     });
