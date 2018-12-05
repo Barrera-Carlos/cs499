@@ -174,7 +174,8 @@
 
 
         let fullDel = JSON.parse(jsonDealString);
-        document.getElementById("testP").innerHTML = fullDel[1];
+        let myhand = JSON.parse(fullDel[1])
+        document.getElementById("testP").innerHTML = myhand.userNumber;
 
         /*for (let i = 0; i < fullDelt.length; i++){
             if(i === 0){
