@@ -175,23 +175,22 @@
 
         let fullDel = JSON.parse(jsonDealString);
         let myhand = JSON.parse(fullDel[1])
+
         document.getElementById("testP").innerHTML = myhand.userNumber;
 
-        /*for (let i = 0; i < fullDelt.length; i++){
+        for (let i = 0; i < fullDel.length; i++){
             if(i === 0){
-                trumpCard = JSON.parse(fullDelt[i]);
+                trumpCard = JSON.parse(fullDel[i]);
             }
             else{
-                let deltHand = JSON.parse(fullDelt[i]);
-                if (deltHand.userNumber === 0){
-                    deltHand.userNumber = 4;
-                }
-                if(deltHand.userNumber === playerName.playerNumber){
-                    document.getElementById("testP").innerHTML = "My numhber: " + String(deltHand.userNumber);
-                    hand = deltHand;
+                let givenHand = JSON.parse(fullDel[i]);
+
+                if(givenHand.userNumber === playerName.playerNumber){
+                    document.getElementById("testP").innerHTML = "My numhber: " + String(givenHand.userNumber);
+                    hand = givenHand;
                 }
             }
-        }*/
+        }
     });
 
 
