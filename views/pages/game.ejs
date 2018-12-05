@@ -171,23 +171,24 @@
     });
 
     socket.on('deal', (jsonDealString) => {
-        let fullDelt = JSON.parse(jsonDealString);
+
+        document.getElementById("testP").innerHTML = jsonDealString;
+        /*let fullDelt = JSON.parse(jsonDealString);
         for (let i = 0; i < fullDelt.length; i++){
             if(i === 0){
                 trumpCard = JSON.parse(fullDelt[i]);
             }
             else{
-                //let deltHand = JSON.parse(fullDelt[i]);
-                document.getElementById("testP").innerHTML = "My numhber: " + String(fullDelt[i]);
-                /*if (deltHand.userNumber === 0){
+                let deltHand = JSON.parse(fullDelt[i]);
+                if (deltHand.userNumber === 0){
                     deltHand.userNumber = 4;
                 }
                 if(deltHand.userNumber === playerName.playerNumber){
                     document.getElementById("testP").innerHTML = "My numhber: " + String(deltHand.userNumber);
                     hand = deltHand;
-                }*/
+                }
             }
-        }
+        }*/
     });
 
 
