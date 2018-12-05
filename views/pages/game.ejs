@@ -100,7 +100,8 @@
         let stringTrumpString = JSON.stringify(trumpCard);
         let handString = JSON.stringify(hand)
 
-        socket.emit('deal', handString, firstHandString, secondHandString, thirdHandString, stringTrumpString);
+        //socket.emit('deal', handString, firstHandString, secondHandString, thirdHandString, stringTrumpString);
+        socket.emit('deal', JSON.stringify(fullDeck));
     }
 
 
