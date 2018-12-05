@@ -105,11 +105,11 @@
         let firstHandString = JSON.stringify(firstHand);
         let secondHandString = JSON.stringify(secondHand);
         let thirdHandString = JSON.stringify(thirdHand);
-        let handString = JSON.stringify(hand);
+        let handString = JSON.stringify(myHand);
 
-        let deltArr = [trumpCardString,firstHandString,secondHandString, thirdHandString, handString];
+        let delArr = [trumpCardString,firstHandString,secondHandString, thirdHandString, handString];
 
-        socket.emit('deal', JSON.stringify(deltArr), roomName);
+        socket.emit('deal', JSON.stringify(delArr), roomName);
         //socket.emit('deal', JSON.stringify(fullDeck));
     }
 
