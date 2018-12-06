@@ -9,7 +9,7 @@
 <p id="testP">test did not work</p>
 
 <ul id="cardOnBoard">
-    <li><img src="/testImg.png"></li>
+    <li><img src="/Deck/2club.png"></li>
 </ul>
 <ul id="cardsInHand"></ul>
 
@@ -44,11 +44,23 @@
     function createDeck() {
         var suitName = ["diamond", "club", "heart", "spade"];
         var count = 0;
+        var cardInitial
         fullDeck = [];
 
         for(count; count < 4; count++) {
 
             for (let i = 1; i < 14; i++) {
+
+                if( i >= 10){
+                    switch (i + 1) {
+                        case 11:
+                            cardInitial = "J";
+                            break;
+                        case 12:
+                            cardInitial = "Q";
+
+                    }
+                }
                 var card = {
                     number: (i % 14) + 1,
                     suit: suitName[count]
