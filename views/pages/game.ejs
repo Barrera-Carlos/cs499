@@ -8,6 +8,14 @@
 <p id="room name" ><%= roomId %></p>
 <p id="testP">test did not work</p>
 
+<ul id="cardOnBoard">
+    <li><img src="testImg"></li>
+</ul>
+<ul id="cardsInHand"></ul>
+
+
+
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
@@ -20,6 +28,19 @@
     let fullDeck ;
     let hand ;
 
+    function showHandToPlayer() {
+        //let board = document.getElementById("cardOnBoard");
+
+    }
+    
+    function addHandToBoard() {
+        
+    }
+
+    function getDeckImages(){
+
+    }
+    
     function createDeck() {
         var suitName = ["diamond", "club", "heart", "spade"];
         var count = 0;
@@ -112,8 +133,7 @@
         socket.emit('deal', JSON.stringify(delArr), roomName);
         //socket.emit('deal', JSON.stringify(fullDeck));
     }
-
-
+    
     function createPlayer (playerNum){
         playerName = {
             playerNumber : playerNum,
@@ -174,9 +194,6 @@
 
 
         let fullDel = JSON.parse(jsonDealString);
-        let myhand = JSON.parse(fullDel[1])
-
-        document.getElementById("testP").innerHTML = myhand.userNumber;
 
         for (let i = 0; i < fullDel.length; i++){
             if(i === 0){
@@ -187,7 +204,7 @@
 
                 if(givenHand.userNumber === playerName.playerNumber){
                     hand = JSON.parse(fullDel[i]);
-                    document.getElementById("testP").innerHTML =  JSON.stringify(hand.pHand);
+                    //call function to display cards in array
                 }
             }
         }
@@ -195,5 +212,6 @@
 
 
 </script>
+
 </body>
 </html>
