@@ -30,7 +30,8 @@
 
     function showHandToPlayer() {
         let board = document.getElementById("cardsInHand");
-        for(let i = 0; i < hand.length; i++){
+
+        for(let i = 0; i < hand.pHand.length; i++){
             let liNode = document.createElement("LI");
             let myImg = new Image(150,200);
             myImg.src = hand.pHand[i].cardImgLocation;
