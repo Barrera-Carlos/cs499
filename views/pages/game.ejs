@@ -11,7 +11,7 @@
 <ul id="cardOnBoard">
     <li><img src="/Deck/2club.png"></li>
 </ul>
-<ul id="cardsInHand"></ul>
+<ul id="cardsInHand" style="list-style-type: none"></ul>
 
 
 
@@ -29,16 +29,19 @@
     let hand ;
 
     function showHandToPlayer() {
-        //let board = document.getElementById("cardOnBoard");
+        let board = document.getElementById("cardsInHand");
+        for(let i = 0; i < hand.length; i++){
+            let liNode = document.createElement("LI");
+            let myImg = new Image(150,200);
+            myImg.src = hand[i].cardImgLocation;
+            liNode.appendChild(myImg);
+            board.appendChild(liNode);
+        }
 
     }
     
     function addHandToBoard() {
         
-    }
-
-    function getDeckImages(){
-
     }
     
     function createDeck() {
@@ -58,12 +61,22 @@
                             break;
                         case 12:
                             cardInitial = "Q";
+                            break;
+                        case 13:
+                            cardInitial = "K";
+                            break;
+                        case 14:
+                            cardInitial = "A";
 
                     }
                 }
+                else {
+                    cardInitial = String(i+1);
+                }
                 var card = {
                     number: (i % 14) + 1,
-                    suit: suitName[count]
+                    suit: suitName[count],
+                    cardImgLocation: "/Deck/"+cardInitial+suitName[count]+ ".png"
                 }
 
                 fullDeck.push(card);
