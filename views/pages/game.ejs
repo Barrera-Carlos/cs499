@@ -2,6 +2,7 @@
 <html>
 <head>
     <% include ../partials/header.ejs %>
+    <link type="text/css" href="/stylesheets/boardStyle.css">
 </head>
 
 <body onload = "roomSelect()">
@@ -33,6 +34,8 @@
             liNode.appendChild(myImg);
             board.appendChild(liNode);
         }
+
+        //after card have been shown ask for bet
 
     }
     
@@ -160,9 +163,10 @@
             playerNumber : playerNum,
             isDealer : false,
             turnToPlay : false,
+            turnToSetTrick: false,
             chosenNumOfTricks : 0,
             wonTricksInRound : 0,
-            totalPoints : 0,
+            totalPoints : 0
         };
     }
 
