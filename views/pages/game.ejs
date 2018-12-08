@@ -234,8 +234,10 @@
 
         for (let i = 0; i < fullDel.length; i++){
             if(i === 0){
-                //trumpCard = JSON.parse(fullDel[i]);
                 document.getElementById("testP").innerHTML = String(fullDel[i]);
+                trumpCard = JSON.parse(fullDel[i]);
+                document.getElementById("testP").innerHTML = trumpCard.cardImgLocation;
+                //document.getElementById("trumpCard").src = trumpCard.cardImgLocation;
             }
             else{
                 let givenHand = JSON.parse(fullDel[i]);
