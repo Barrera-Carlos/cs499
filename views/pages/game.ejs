@@ -337,7 +337,7 @@
     });
 
     socket.on("allPlayersBets", (pastPlayerNumberString, lastPlayerBet) => {
-        let playerBet = "Player " +  pastPlayerNumberString + " bet: " + lastPlayerBet
+        let playerBet = " Player " +  pastPlayerNumberString + " bet: " + lastPlayerBet
         let betsOfPlayers = document.getElementById("totalBets");
         betsOfPlayers.textContent + playerBet;
     });
