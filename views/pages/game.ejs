@@ -6,9 +6,9 @@
 
 <body onload = "roomSelect()">
 
-<p id="testP">test did not work</p>
+<p id="testP"></p>
 
-<p id="room name" ><%= roomId %></p>
+<p id="room name" >Room name: <%= roomId %> </p>
 
 <ul id="trumpOnBoard" style="list-style-type: none"></ul>
 
@@ -33,10 +33,34 @@
     let round = 10;
     let fullDeck ;
     let hand ;
-    
+
+    function placeBet(betVal){
+
+        if( !playerName.isDealer ){
+            playerName.chosenTrickNumber = betVal;
+            document.getElementById("betForm").style.visibility = "hidden";
+            socket.emit('TrickBet', String(playerName.playerNumber), String(playerName.chosenTrickNumber), roomName);
+        }
+        else {
+            if((betVal + playerName.totalTrickByAllPlayers) === round){
+                alert("sorry your bet equals to the number of rounds")
+            }
+            else {
+                playerName.chosenTrickNumber = betVal;
+                document.getElementById("betForm").style.visibility = "hidden";
+                //we can start playing the game.
+            }
+        }
+    }
+
     function checkForm() {
         let betValue = Number(document.getElementById("betInput").value);
-        document.getElementById("testP").innerHTML = String(betValue);
+        //document.getElementById("testP").innerHTML = "your trick bet for this round is: " + String(betValue);
+        if(betValue > round || betValue < 0){
+            alert("your bet is to big or to small for this round");
+        }
+        else
+            placeBet(betValue);
     }
 
     function whoStartedTrickBet(){
@@ -216,9 +240,10 @@
             isDealer : false,
             turnToPlay : false,
             turnToSetTrick: false,
-            chosenNumOfTricks : 0,
+            chosenTrickNumber : 0,
             wonTricksInRound : 0,
-            totalPoints : 0
+            totalPoints : 0,
+            totalTrickByAllPlayers: 0
         };
     }
 
@@ -288,6 +313,13 @@
         }
 
         showHandToPlayer(trumpCard);
+    });
+
+    socket.on('TrickBet', (pastPlayerNumberString, trickBetByLastPlayerString) => {
+       if(playerName.playerNumber === ((Number(pastPlayerNumberString)) % 4) + 1){
+           playerName.totalTrickByAllPlayers += Number(trickBetByLastPlayerString);
+           document.getElementById("betForm").style.visibility = "visible";
+       }
     });
 
 

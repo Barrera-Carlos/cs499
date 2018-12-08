@@ -51,6 +51,10 @@ io.on('connection', function (socket) {
        io.in(roomName).emit('deal', fullDeck);
 
     });
+
+    socket.on('TrickBet', (playerNumberString, trickBetByLastPlayerString, roomName) => {
+        socket.to(roomName).emit('TrickBet', playerNumberString, trickBetByLastPlayerString);
+    });
 });
 
 //app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
