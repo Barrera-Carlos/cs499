@@ -53,6 +53,10 @@ io.on('connection', function (socket) {
     });
 
     socket.on('TrickBet', (playerNumberString, trickBetByLastPlayerString, roomName) => {
+        /**
+         * I could emit the bet made by the las player
+         * so the next player can make a better betting decision
+         */
         socket.to(roomName).emit('TrickBet', playerNumberString, trickBetByLastPlayerString);
     });
 });

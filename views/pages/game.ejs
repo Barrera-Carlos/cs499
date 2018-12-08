@@ -39,6 +39,9 @@
         if( !playerName.isDealer ){
             playerName.chosenTrickNumber = betVal;
             document.getElementById("betForm").style.visibility = "hidden";
+
+            document.getElementById("testP").innerHTML = "your trick bet for this round is: " + String(betVal);
+
             socket.emit('TrickBet', String(playerName.playerNumber), String(playerName.chosenTrickNumber), roomName);
         }
         else {
@@ -47,6 +50,9 @@
             }
             else {
                 playerName.chosenTrickNumber = betVal;
+
+                document.getElementById("testP").innerHTML = "your trick bet for this round is: " + String(betVal);
+
                 document.getElementById("betForm").style.visibility = "hidden";
                 //we can start playing the game.
             }
@@ -316,6 +322,7 @@
     });
 
     socket.on('TrickBet', (pastPlayerNumberString, trickBetByLastPlayerString) => {
+
        if(playerName.playerNumber === ((Number(pastPlayerNumberString)) % 4) + 1){
            playerName.totalTrickByAllPlayers += Number(trickBetByLastPlayerString);
            document.getElementById("betForm").style.visibility = "visible";
