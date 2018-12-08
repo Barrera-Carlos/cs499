@@ -57,7 +57,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on('allPlayersBets', (pastPlayerNumberString, lastPlayerBet, roomName) => {
-        socket.to(roomName).emit('TrickBet', pastPlayerNumberString, lastPlayerBet);
+        socket.to(roomName).emit('allPlayersBets', pastPlayerNumberString, lastPlayerBet);
     })
 });
 
