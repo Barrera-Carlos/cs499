@@ -6,7 +6,7 @@
 
 <body onload = "roomSelect()">
 
-<!--p id="testP">test did not work</p-->
+<p id="testP">test did not work</p>
 
 <p id="room name" ><%= roomId %></p>
 <form id="betForm">
@@ -234,8 +234,8 @@
 
         for (let i = 0; i < fullDel.length; i++){
             if(i === 0){
-                trumpCard = JSON.parse(fullDel[i]);
-                document.getElementById("trumpCard").src = trumpCard.cardImgLocation;
+                //trumpCard = JSON.parse(fullDel[i]);
+                document.getElementById("testP").innerHTML = String(fullDel[i]);
             }
             else{
                 let givenHand = JSON.parse(fullDel[i]);
