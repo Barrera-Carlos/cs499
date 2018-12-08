@@ -33,9 +33,9 @@
     let fullDeck ;
     let hand ;
 
-    function showHandToPlayer() {
+    function showHandToPlayer(tC) {
         let board = document.getElementById("cardsInHand");
-        document.getElementById("trumpCard").src = trumpCard.cardImgLocation;
+        document.getElementById("trumpCard").src = tC.cardImgLocation;
 
 
 
@@ -246,7 +246,7 @@
             }
         }
 
-        showHandToPlayer();
+        showHandToPlayer(trumpCard);
     });
 
 
