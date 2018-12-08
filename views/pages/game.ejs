@@ -46,6 +46,7 @@
 
             playerName.totalTrickByAllPlayers += playerName.chosenTrickNumber;
             let totalNum = playerName.totalTrickByAllPlayers
+            socket.emit('allPlayersBets', String(playerName.playerNumber), String( playerName.chosenTrickNumber), roomName);
             socket.emit('TrickBet', String(playerName.playerNumber), String(totalNum), roomName);
         }
         else {
@@ -58,7 +59,8 @@
                 document.getElementById("testP").innerHTML = "your trick bet for this round is: " + String(betVal);
 
                 document.getElementById("betForm").style.visibility = "hidden";
-                //we can start playing the game.
+
+                socket.emit('allPlayersBets', String(playerName.playerNumber), String( playerName.chosenTrickNumber), roomName);
             }
         }
     }
@@ -329,9 +331,15 @@
 
        if(playerName.playerNumber === ((Number(pastPlayerNumberString)) % 4) + 1){
            playerName.totalTrickByAllPlayers += Number(tricksBetByAllPlayersString);
-           document.getElementById("totalBets").innerHTML = "all bets have added up to: " + String(playerName.totalTrickByAllPlayers);
+           //document.getElementById("totalBets").innerHTML = "all bets have added up to: " + String(playerName.totalTrickByAllPlayers);
            document.getElementById("betForm").style.visibility = "visible";
        }
+    });
+
+    socket.on("allPlayersBets", (pastPlayerNumberString, lastPlayerBet) => {
+        let playerBet = "Player " +  pastPlayerNumberString + " bet: " + lastPlayerBet
+        let betsOfPlayers = document.getElementById("totalBets");
+        betsOfPlayers.textContent + playerBet;
     });
 
 
