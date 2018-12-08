@@ -5,15 +5,17 @@
 </head>
 
 <body onload = "roomSelect()">
-<p id="room name" ><%= roomId %></p>
-<p id="testP">test did not work</p>
+
+<!--p id="testP">test did not work</p-->
 
 
-<form>
+<form id="betForm">
     Trick Bet:
     <input type="number" name="trickBet">
     <input type="submit" value="Bet">
 </form>
+<p id="room name" ><%= roomId %></p>
+
 <ul id="cardOnBoard" style="list-style-type: none"></ul>
 <ul id="cardsInHand" style="list-style-type: none"></ul>
 
@@ -196,7 +198,7 @@
      */
     socket.on('join', (msg) => {
         // msg should be tested if its in the correct range of 1-4;
-        document.getElementById("testP").innerHTML = String(msg);
+        //document.getElementById("testP").innerHTML = String(msg);
 
         createPlayer(Number(msg));
 

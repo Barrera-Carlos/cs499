@@ -29,3 +29,6 @@ ul#cardsInHand li{
   display: inline;
 }
 
+#betForm {
+  visibility: hidden;
+}
