@@ -236,8 +236,9 @@
             if(i === 0){
                 document.getElementById("testP").innerHTML = String(fullDel[i]);
                 trumpCard = JSON.parse(fullDel[i]);
-                document.getElementById("testP").innerHTML = trumpCard.cardImgLocation;
-                document.getElementById("trumpCard").src = String(trumpCard.cardImgLocation);
+                let trumpCardImgLocation = trumpCard.cardImgLocation;
+                document.getElementById("testP").innerHTML = trumpCardImgLocation;
+                document.getElementById("trumpCard").src = trumpCardImgLocation;
             }
             else{
                 let givenHand = JSON.parse(fullDel[i]);
