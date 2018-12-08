@@ -9,16 +9,17 @@
 <p id="testP">test did not work</p>
 
 <p id="room name" ><%= roomId %></p>
-<form id="betForm">
-    Trick Bet:
-    <input type="number" name="trickBet">
-    <input type="submit" value="Bet">
-</form>
 
 <ul id="trumpOnBoard" style="list-style-type: none"></ul>
 
+<form>b id="betForm">
+    Trick Bet: <br>
+    <input type="number" name="trickBet" id="betInput" title="form input used for betting">
+    <button onclick="checkForm()">Make a Bet</button>
+</form>
 
 <ul id="cardOnBoard" style="list-style-type: none"></ul>
+
 <ul id="cardsInHand" style="list-style-type: none"></ul>
 
 <script src="/socket.io/socket.io.js"></script>
@@ -32,8 +33,13 @@
     let round = 10;
     let fullDeck ;
     let hand ;
+    
+    function checkForm() {
+        let betValue = Number(document.getElementById("betInput").value);
+        document.getElementById("testP").innerHTML = String(betValue);
+    }
 
-    function whoStartdTrickBet(){
+    function whoStartedTrickBet(){
         switch (round) {
             case 10:
                 return 2
@@ -79,15 +85,15 @@
             board.appendChild(liNode);
         }
 
-        if(playerName.playerNumber === whoStartdTrickBet()){
+        if(playerName.playerNumber === whoStartedTrickBet()){
             document.getElementById("betForm").style.visibility = "visible";
         }
 
     }
     
-    function addHandToBoard() {
+    /*function addHandToBoard() {
         
-    }
+    }*/
     
     function createDeck() {
         var suitName = ["diamond", "club", "heart", "spade"];
@@ -268,7 +274,7 @@
 
         for (let i = 0; i < fullDel.length; i++){
             if(i === 0){
-                //document.getElementById("testP").innerHTML = String(fullDel[i]);
+
                 trumpCard = JSON.parse(fullDel[i]);
             }
             else{
