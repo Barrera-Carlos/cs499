@@ -2,13 +2,18 @@
 <html>
 <head>
     <% include ../partials/header.ejs %>
-    <link type="text/css" href="/stylesheets/boardStyle.css">
 </head>
 
 <body onload = "roomSelect()">
 <p id="room name" ><%= roomId %></p>
 <p id="testP">test did not work</p>
 
+
+<form>
+    Trick Bet:
+    <input type="number" name="trickBet">
+    <input type="submit" value="Bet">
+</form>
 <ul id="cardOnBoard" style="list-style-type: none"></ul>
 <ul id="cardsInHand" style="list-style-type: none"></ul>
 
