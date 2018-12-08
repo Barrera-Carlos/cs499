@@ -8,6 +8,8 @@
 
 <p id="testP"></p>
 
+<p id="totalBets"></p>
+
 <p id="room name" >Room name: <%= roomId %> </p>
 
 <ul id="trumpOnBoard" style="list-style-type: none"></ul>
@@ -325,6 +327,7 @@
 
        if(playerName.playerNumber === ((Number(pastPlayerNumberString)) % 4) + 1){
            playerName.totalTrickByAllPlayers += Number(trickBetByLastPlayerString);
+           document.getElementById("totalBets").innerHTML = "all bets have added up to: " + String(playerName.totalTrickByAllPlayers);
            document.getElementById("betForm").style.visibility = "visible";
        }
     });
