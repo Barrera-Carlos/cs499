@@ -33,9 +33,9 @@
     let fullDeck ;
     let hand ;
 
-    function showHandToPlayer(tC) {
+    function showHandToPlayer() {
         let board = document.getElementById("cardsInHand");
-        document.getElementById("trumpCard").src = tC.cardImgLocation;
+        //document.getElementById("trumpCard").src = trumpCard.cardImgLocation;
 
 
 
@@ -235,6 +235,7 @@
         for (let i = 0; i < fullDel.length; i++){
             if(i === 0){
                 trumpCard = JSON.parse(fullDel[i]);
+                document.getElementById("trumpCard").src = trumpCard.cardImgLocation;
             }
             else{
                 let givenHand = JSON.parse(fullDel[i]);
