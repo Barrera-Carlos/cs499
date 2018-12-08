@@ -33,6 +33,32 @@
     let fullDeck ;
     let hand ;
 
+    function whoStartdTrickBet(){
+        switch (round) {
+            case 10:
+                return 2
+            case 9:
+                return 3
+            case 8:
+                return 4
+            case 7:
+                return 1
+            case 6:
+                return 2
+            case 5:
+                return 3
+            case 4:
+                return 4
+            case 3:
+                return 1
+            case 2:
+                return 2
+            case 1:
+                return 3
+
+        }
+    }
+
     function showHandToPlayer() {
         let board = document.getElementById("cardsInHand");
         let trumpLocation = document.getElementById("trumpOnBoard");
@@ -53,7 +79,9 @@
             board.appendChild(liNode);
         }
 
-        //after card have been shown ask for bet
+        if(playerName.playerNumber === whoStartdTrickBet()){
+            document.getElementById("betForm").style.visibility = "visible";
+        }
 
     }
     
@@ -240,7 +268,7 @@
 
         for (let i = 0; i < fullDel.length; i++){
             if(i === 0){
-                document.getElementById("testP").innerHTML = String(fullDel[i]);
+                //document.getElementById("testP").innerHTML = String(fullDel[i]);
                 trumpCard = JSON.parse(fullDel[i]);
             }
             else{
