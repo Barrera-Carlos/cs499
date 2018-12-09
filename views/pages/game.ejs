@@ -37,7 +37,7 @@
     let hand ;
 
     function cardSelected(playerNumber, cardString) {
-       if(playerName.turnToPlay) {
+       if(!playerName.turnToPlay) {
            alert(playerNumber + " " +cardString);
        }
     }
