@@ -37,7 +37,7 @@
     let hand ;
 
     function cardSelected(playerNumber, cardString) {
-       if(!playerName.turnToPlay) {
+       if(playerName.turnToPlay) {
            alert(playerNumber + " " +cardString);
        }
     }
@@ -126,7 +126,7 @@
             let liNode = document.createElement("LI");
             let myImg = new Image(150,200);
             myImg.src = hand.pHand[i].cardImgLocation;
-            myImg.onclick = function(){ cardSelected(playerName.number,JSON.stringify(hand.pHand[i]))};
+            myImg.onclick = function(){ cardSelected(String(playerName.number),JSON.stringify(hand.pHand[i]))};
             myImg.id = String(hand.pHand[i].number) + String(hand.pHand[i].suit);
             liNode.appendChild(myImg);
             board.appendChild(liNode);
