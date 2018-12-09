@@ -117,6 +117,7 @@
             let liNode = document.createElement("LI");
             let myImg = new Image(150,200);
             myImg.src = hand.pHand[i].cardImgLocation;
+            myImg.id = "this is how you make an id"
             liNode.appendChild(myImg);
             board.appendChild(liNode);
         }
