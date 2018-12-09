@@ -36,6 +36,10 @@
     let fullDeck ;
     let hand ;
 
+    function cardSelected(cardNumber, cardSuit) {
+        alert("the card number is:" + cardNumber + " The card suit is: " + cardSuit);
+    }
+
     function placeBet(betVal){
 
         if( !playerName.isDealer ){
@@ -117,7 +121,7 @@
             let liNode = document.createElement("LI");
             let myImg = new Image(150,200);
             myImg.src = hand.pHand[i].cardImgLocation;
-            myImg.onclick = function(){ getCard(hand.pHand[i].number, hand.pHand[i].suit)};
+            myImg.onclick = function(){ cardSelected(hand.pHand[i].number, hand.pHand[i].suit)};
             myImg.id = String(hand.pHand[i].number) + String(hand.pHand[i].suit);
             liNode.appendChild(myImg);
             board.appendChild(liNode);
