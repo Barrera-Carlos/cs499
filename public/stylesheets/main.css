@@ -25,7 +25,11 @@
     .jumbotron .lang-logo img {
       max-width: 100%; }
 
-ul#cardsInHand li{
+/*ul#cardsInHand li{
+  display: inline;
+}*/
+
+li{
   display: inline;
 }
 

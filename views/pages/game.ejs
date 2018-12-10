@@ -52,7 +52,7 @@
         boardTag.appendChild(liNode);
 
         boardCards.cardsOnBoard.push(cardObj);
-        if(boardCards.cardsOnBoard.length === 5){
+        if(boardCards.cardsOnBoard.length === 4){
             //calculate who won
         }
     }
@@ -107,7 +107,8 @@
                let cAndSString = JSON.stringify(cardAndSenderObj);
 
                socket.emit('addingCardToBoard', cAndSString, roomName);
-               socket.emit('whoCanPlayCard', String((playerName.playerNumber%4)+1), roomName);
+               if(boardCards.cardsOnBoard.length <= 4)
+                   socket.emit('whoCanPlayCard', String((playerName.playerNumber%4)+1), roomName);
                //
            }
 
