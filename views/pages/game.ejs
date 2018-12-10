@@ -423,7 +423,6 @@
     });
 
     socket.on('whoCanPlayCard', (userWhoCanBet) => {
-        alert(userWhoCanBet);
         if(playerName.playerNumber === Number(userWhoCanBet)){
             playerName.turnToPlay = true;
             alert("you can now choose a card to play");
