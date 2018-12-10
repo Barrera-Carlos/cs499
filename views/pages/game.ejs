@@ -211,10 +211,6 @@
 
     }
     
-    /*function addHandToBoard() {
-        
-    }*/
-    
     function createDeck() {
         var suitName = ["diamond", "club", "heart", "spade"];
         var count = 0;
@@ -427,6 +423,7 @@
     });
 
     socket.on('whoCanPlayCard', (userWhoCanBet) => {
+        alert(userWhoCanBet)
         if(playerName.playerNumber === Number(userWhoCanBet)){
             playerName.turnToPlay = true;
             alert("you can now choose a card to play");
