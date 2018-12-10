@@ -118,7 +118,7 @@
                 document.getElementById("betForm").style.visibility = "hidden";
 
                 socket.emit('allPlayersBets', String(playerName.playerNumber), String( playerName.chosenTrickNumber), roomName);
-                socket.emit('placeCard', String((playerName.playerNumber % 4) + 1), roomName);
+                socket.emit('placeCard', String(whoStartedTrickBet()), roomName);
             }
         }
     }
@@ -406,6 +406,7 @@
     });
 
     socket.on('placeCard', (userWhoCanBet) => {
+        alert(userWhoCanBet);
         if(playerName.chosenTrickNumber === Number(userWhoCanBet)){
             playerName.turnToPlay = true;
             alert("you can now choose a card to play");
