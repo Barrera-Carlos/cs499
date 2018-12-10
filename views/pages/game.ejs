@@ -140,6 +140,7 @@
 
                 socket.emit('allPlayersBets', String(playerName.playerNumber), String( playerName.chosenTrickNumber), roomName);
                 socket.emit('whoCanPlayCard', String(whoStartedTrickBet()), roomName);
+                alert(String(whoStartedTrickBet()));
             }
         }
     }
@@ -423,7 +424,7 @@
     });
 
     socket.on('whoCanPlayCard', (userWhoCanBet) => {
-        alert(userWhoCanBet)
+        alert(userWhoCanBet);
         if(playerName.playerNumber === Number(userWhoCanBet)){
             playerName.turnToPlay = true;
             alert("you can now choose a card to play");
