@@ -42,8 +42,11 @@
 
     function addCardToBoard(cardAndSenderString) {
         let cardObj = JSON.parse(cardAndSenderString);
-        let boardTag = document.getElementById('cardOnBoard');
+        if(boardCards.cardsOnBoard.length === 0){
+            boardCards.suit = cardObj.card.suit;
+        }
 
+        let boardTag = document.getElementById('cardOnBoard');
         let liNode = document.createElement("LI");
         let myImg = new Image(150,200);
         myImg.src = cardObj.card.cardImgLocation;
@@ -63,10 +66,10 @@
     }
 
     function checkCard(chosenCard){
-         if (boardCards.suit === null){
+         if (boardCards.cardsOnBoard.length === 0){
              return true;
          }
-         else if(chosenCard.suit === boardCards.suit){
+         else if(chosenCard.suit === boardCards.suit || chosenCard.suit === trumpCard.suit){
              return true;
          }
          else{
@@ -82,7 +85,7 @@
     }
 
     function cardSelected(playerNumber, cardString) {
-       if(playerName.turnToPlay) {
+       if(playerName.turnToPlay && (boardCards.cardsOnBoard.length + 1) <= 4) {
            playerName.turnToPlay = false;
 
            let cardChosen = JSON.parse(cardString);
@@ -107,8 +110,9 @@
                let cAndSString = JSON.stringify(cardAndSenderObj);
 
                socket.emit('addingCardToBoard', cAndSString, roomName);
-               if(boardCards.cardsOnBoard.length <= 4)
-                   socket.emit('whoCanPlayCard', String((playerName.playerNumber%4)+1), roomName);
+               if((boardCards.cardsOnBoard.length + 1) < 4) {
+                   socket.emit('whoCanPlayCard', String((playerName.playerNumber % 4) + 1), roomName);
+               }
                //
            }
 
