@@ -93,8 +93,7 @@
             let hadNumber = hand.pHand[i].number;
             let handSuit = hand.pHand[i].suit;
             if(cardNumber === hadNumber && cardSuit === handSuit){
-                let removedCard = hand.pHand.splice(i, 1);
-                alert(JSON.stringify(removedCard) + "has been removed");
+                hand.pHand.splice(i, 1);
             }
         }
     }
