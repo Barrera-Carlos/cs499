@@ -93,7 +93,7 @@
 
            if(!checkCard(cardChosen)){
                alert("sorry the card that you have chosen does not follow suit");
-               playerNumber.turnToPlay = true;
+               playerName.turnToPlay = true;
            }
            else {
                if(boardCards.cardsOnBoard.length === 0){
@@ -113,9 +113,7 @@
                if((boardCards.cardsOnBoard.length + 1) < 4) {
                    socket.emit('whoCanPlayCard', String((playerName.playerNumber % 4) + 1), roomName);
                }
-               //
            }
-
        }
     }
 
