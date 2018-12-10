@@ -35,10 +35,61 @@
     let round = 10;
     let fullDeck ;
     let hand ;
+    let boardCards = {
+        suit: null,
+        cardsOnBoard: []
+    }
+
+    function deleteCardFromHand(cardId) {
+        let card = document.getElementById(cardId);
+        card.parentNode.removeChild(card);
+    }
+
+    function checkCard(chosenCard){
+         if (boardCards.suit === null){
+             return true;
+         }
+         else if(chosenCard.suit === boardCards.suit){
+             return true;
+         }
+         else{
+             let tellingTheTruth = true;
+             for(let i = 0; i < hand.pHand.length; i++){
+                 if(hand.pHand[i].suit === boardCards.suit){
+                     tellingTheTruth = false;
+                 }
+             }
+
+             return tellingTheTruth;
+         }
+    }
 
     function cardSelected(playerNumber, cardString) {
-       if(!playerName.turnToPlay) {
-           alert(playerNumber + " " +cardString);
+       if(playerName.turnToPlay) {
+           playerName.turnToPlay = false;
+
+           let cardChosen = JSON.parse(cardString);
+           let cardId = String(cardChosen.number) + String(cardChosen.suit);
+
+           if(!checkCard(cardChosen)){
+               alert("sorry the card that you have chosen does not follow suit");
+               playerNumber.turnToPlay = true;
+           }
+           else {
+               if(boardCards.cardsOnBoard.length === 0){
+                   boardCards.suit = cardChosen.suit;
+               }
+
+               deleteCardFromHand(cardId);
+
+           }
+
+
+           //delete card from hand
+
+
+           //add card to board array
+           //send Card information to all other players
        }
     }
 
@@ -67,6 +118,7 @@
                 document.getElementById("betForm").style.visibility = "hidden";
 
                 socket.emit('allPlayersBets', String(playerName.playerNumber), String( playerName.chosenTrickNumber), roomName);
+                socket.emit('placeCard', String((playerName.playerNumber % 4) + 1), roomName);
             }
         }
     }
@@ -126,7 +178,7 @@
             let liNode = document.createElement("LI");
             let myImg = new Image(150,200);
             myImg.src = hand.pHand[i].cardImgLocation;
-            myImg.onclick = function(){ cardSelected(String(playerName.number),JSON.stringify(hand.pHand[i]))};
+            myImg.onclick = function(){ cardSelected(String(playerName.playerNumber),JSON.stringify(hand.pHand[i]))};
             myImg.id = String(hand.pHand[i].number) + String(hand.pHand[i].suit);
             liNode.appendChild(myImg);
             board.appendChild(liNode);
@@ -347,10 +399,17 @@
        }
     });
 
-    socket.on("allPlayersBets", (pastPlayerNumberString, lastPlayerBet) => {
+    socket.on('allPlayersBets', (pastPlayerNumberString, lastPlayerBet) => {
         let playerBet = " (P:" +  pastPlayerNumberString + "|B:" + lastPlayerBet + ")"
         let betsOfPlayers = document.getElementById("totalBets");
         betsOfPlayers.textContent += playerBet;
+    });
+
+    socket.on('placeCard', (userWhoCanBet) => {
+        if(playerName.chosenTrickNumber === Number(userWhoCanBet)){
+            playerName.turnToPlay = true;
+            alert("you can now choose a card to play");
+        }
     });
 
 
