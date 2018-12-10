@@ -61,7 +61,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on('whoCanPlayCard', (userWhoCanBet, roomName) => {
-        socket.to(roomName).emit('placeCard', userWhoCanBet);
+        socket.to(roomName).emit('whoCanPlayCard', userWhoCanBet);
     });
 
     socket.on('addingCardToBoard', (cardAndSenderString, roomName) => {

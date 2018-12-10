@@ -140,7 +140,6 @@
 
                 socket.emit('allPlayersBets', String(playerName.playerNumber), String( playerName.chosenTrickNumber), roomName);
                 socket.emit('whoCanPlayCard', String(whoStartedTrickBet()), roomName);
-                alert(String(whoStartedTrickBet()));
             }
         }
     }
