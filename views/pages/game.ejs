@@ -61,16 +61,16 @@
     }
 
     function deleteCardFromHand(cardNumber, cardSuit) {
-        let cardId = cardNumber + cardSuit;
+        let cardId = String(cardNumber) + cardSuit;
         let card = document.getElementById(cardId);
         card.parentNode.removeChild(card);
 
         for(let i = 0; i < hand.pHand.length; i++){
             let hadNumber = hand.pHand[i].number;
             let handSuit = hand.pHand[i].suit;
-            if(Number(cardNumber) === Number(hadNumber) && String(cardSuit) === String(handSuit)){
+            if(cardNumber === hadNumber && cardSuit === handSuit){
                 let removedCard = hand.pHand.splice(i, 1);
-                alert(JSON.parse(removedCard) + "has been removed");
+                alert(JSON.stringify(removedCard) + "has been removed");
             }
         }
     }
@@ -117,12 +117,14 @@
 
                let cAndSString = JSON.stringify(cardAndSenderObj);
 
+               deleteCardFromHand(cardChosen.number, cardChosen.suit);
+
                socket.emit('addingCardToBoard', cAndSString, roomName);
                if((boardCards.cardsOnBoard.length + 1) < 4) {
                    socket.emit('whoCanPlayCard', String((playerName.playerNumber % 4) + 1), roomName);
                }
 
-               deleteCardFromHand(String(cardChosen.number) + String(cardChosen.suit) );
+
            }
        }
     }
