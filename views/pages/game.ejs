@@ -106,7 +106,7 @@
 
                let cAndSString = JSON.stringify(cardAndSenderObj);
 
-               socket.emit('addingCardToBoard', cAndSString);
+               socket.emit('addingCardToBoard', cAndSString, roomName);
                socket.emit('whoCanPlayCard', String((playerName.playerNumber%4)+1), roomName);
                //
            }
