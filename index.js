@@ -58,7 +58,11 @@ io.on('connection', function (socket) {
 
     socket.on('allPlayersBets', (pastPlayerNumberString, lastPlayerBet, roomName) => {
         socket.to(roomName).emit('allPlayersBets', pastPlayerNumberString, lastPlayerBet);
-    })
+    });
+
+    socket.on('placeCard', (userWhoCanBet, roomName) => {
+        socket.to(roomName).emit('placeCard', userWhoCanBet);
+    });
 });
 
 //app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
