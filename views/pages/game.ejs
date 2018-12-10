@@ -60,9 +60,19 @@
         }
     }
 
-    function deleteCardFromHand(cardId) {
+    function deleteCardFromHand(cardNumber, cardSuit) {
+        let cardId = cardNumber + cardSuit;
         let card = document.getElementById(cardId);
         card.parentNode.removeChild(card);
+
+        for(let i = 0; i < hand.pHand.length; i++){
+            let hadNumber = hand.pHand[i].number;
+            let handSuit = hand.pHand[i].suit;
+            if(Number(cardNumber) === Number(hadNumber) && String(cardSuit) === String(handSuit)){
+                let removedCard = hand.pHand.splice(i, 1);
+                alert(JSON.parse(removedCard) + "has been removed");
+            }
+        }
     }
 
     function checkCard(chosenCard){
@@ -89,7 +99,7 @@
            playerName.turnToPlay = false;
 
            let cardChosen = JSON.parse(cardString);
-           let cardId = String(cardChosen.number) + String(cardChosen.suit);
+
 
            if(!checkCard(cardChosen)){
                alert("sorry the card that you have chosen does not follow suit");
@@ -99,8 +109,6 @@
                if(boardCards.cardsOnBoard.length === 0){
                    boardCards.suit = cardChosen.suit;
                }
-
-               deleteCardFromHand(cardId);
 
                let cardAndSenderObj = {
                    senderNumber: Number(playerNumber),
@@ -113,6 +121,8 @@
                if((boardCards.cardsOnBoard.length + 1) < 4) {
                    socket.emit('whoCanPlayCard', String((playerName.playerNumber % 4) + 1), roomName);
                }
+
+               deleteCardFromHand(String(cardChosen.number) + String(cardChosen.suit) );
            }
        }
     }
