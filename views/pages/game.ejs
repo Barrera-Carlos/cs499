@@ -40,6 +40,23 @@
         cardsOnBoard: []
     }
 
+    function addCardToBoard(cardAndSenderString) {
+        let cardObj = JSON.parse(cardAndSenderString);
+        let boardTag = document.getElementById('cardOnBoard');
+
+        let liNode = document.createElement("LI");
+        let myImg = new Image(150,200);
+        myImg.src = cardObj.card.cardImgLocation;
+        myImg.id = String(cardObj.card.number) + String(cardObj.card.suit);
+        liNode.appendChild(myImg);
+        boardTag.appendChild(liNode);
+
+        boardCards.cardsOnBoard.push(cardObj);
+        if(boardCards.cardsOnBoard.length === 5){
+            //calculate who won
+        }
+    }
+
     function deleteCardFromHand(cardId) {
         let card = document.getElementById(cardId);
         card.parentNode.removeChild(card);
@@ -82,14 +99,18 @@
 
                deleteCardFromHand(cardId);
 
+               let cardAndSenderObj = {
+                   senderNumber: Number(playerNumber),
+                   card: cardChosen
+               }
+
+               let cAndSString = JSON.stringify(cardAndSenderObj);
+
+               socket.emit('addingCardToBoard', cAndSString);
+               socket.emit('whoCanPlayCard', String((playerName.playerNumber%4)+1), roomName);
+               //
            }
 
-
-           //delete card from hand
-
-
-           //add card to board array
-           //send Card information to all other players
        }
     }
 
@@ -118,7 +139,7 @@
                 document.getElementById("betForm").style.visibility = "hidden";
 
                 socket.emit('allPlayersBets', String(playerName.playerNumber), String( playerName.chosenTrickNumber), roomName);
-                socket.emit('placeCard', String(whoStartedTrickBet()), roomName);
+                socket.emit('whoCanPlayCard', String(whoStartedTrickBet()), roomName);
             }
         }
     }
@@ -160,7 +181,7 @@
     }
 
     function showHandToPlayer() {
-        let board = document.getElementById("cardsInHand");
+        let handTag = document.getElementById("cardsInHand");
         let trumpLocation = document.getElementById("trumpOnBoard");
         //document.getElementById("trumpCard").src = trumpCard.cardImgLocation;
 
@@ -181,7 +202,7 @@
             myImg.onclick = function(){ cardSelected(String(playerName.playerNumber),JSON.stringify(hand.pHand[i]))};
             myImg.id = String(hand.pHand[i].number) + String(hand.pHand[i].suit);
             liNode.appendChild(myImg);
-            board.appendChild(liNode);
+            handTag.appendChild(liNode);
         }
 
         if(playerName.playerNumber === whoStartedTrickBet()){
@@ -405,11 +426,15 @@
         betsOfPlayers.textContent += playerBet;
     });
 
-    socket.on('placeCard', (userWhoCanBet) => {
+    socket.on('whoCanPlayCard', (userWhoCanBet) => {
         if(playerName.playerNumber === Number(userWhoCanBet)){
             playerName.turnToPlay = true;
             alert("you can now choose a card to play");
         }
+    });
+
+    socket.on('addingCardToBoard', (cardAndSenderString) => {
+        addCardToBoard(cardAndSenderString);
     });
 
 

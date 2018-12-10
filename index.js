@@ -60,8 +60,12 @@ io.on('connection', function (socket) {
         socket.to(roomName).emit('allPlayersBets', pastPlayerNumberString, lastPlayerBet);
     });
 
-    socket.on('placeCard', (userWhoCanBet, roomName) => {
+    socket.on('whoCanPlayCard', (userWhoCanBet, roomName) => {
         socket.to(roomName).emit('placeCard', userWhoCanBet);
+    });
+
+    socket.on('addingCardToBoard', (cardAndSenderString, roomName) => {
+        io.in(roomName).emit('addingCardToBoard', cardAndSenderString);
     });
 });
 
