@@ -40,6 +40,30 @@
         cardsOnBoard: []
     }
 
+    function whoWonTrick() {
+        let winningUser = boardCards.cardsOnBoard[0].senderNumber;
+        let winningSuit = boardCards.suit;
+        let winningNumber = boardCards.cardsOnBoard[0].card.number;
+        let trumpSuit = trumpCard.suit;
+
+        for(let i = 1; i < boardCards.cardsOnBoard.length; i++){
+            if(winningSuit === boardCards.cardsOnBoard[i].card.suit){
+                if(winningNumber < boardCards.cardsOnBoard[i].card.number){
+                    winningUser = boardCards.cardsOnBoard[i].senderNumber;
+                    winningSuit = boardCards.cardsOnBoard[i].card.suit;
+                    winningNumber = boardCards.cardsOnBoard[i].card.number;
+                }
+            }
+            else if(trumpSuit === boardCards.cardsOnBoard[i].card.suit){
+                winningUser = boardCards.cardsOnBoard[i].senderNumber;
+                winningSuit = boardCards.cardsOnBoard[i].card.suit;
+                winningNumber = boardCards.cardsOnBoard[i].card.number;
+            }
+        }
+
+        alert("player: " + winningUser + " won");
+    }
+
     function addCardToBoard(cardAndSenderString) {
         let cardObj = JSON.parse(cardAndSenderString);
         if(boardCards.cardsOnBoard.length === 0){
@@ -56,7 +80,7 @@
 
         boardCards.cardsOnBoard.push(cardObj);
         if(boardCards.cardsOnBoard.length === 4){
-            //calculate who won
+            whoWonTrick();
         }
     }
 
