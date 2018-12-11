@@ -164,7 +164,9 @@
          }
     }
 
-    function cardSelected(cardString) {
+    function cardSelected(cardId) {
+        alert(cardId);
+        /*
        if(playerName.turnToPlay && boardCards.cardsOnBoard.length + 1 <= 4) {
            if (cardString != null) {
                playerName.turnToPlay = false;
@@ -202,7 +204,7 @@
            else{
                alert("you chose " + cardString);
            }
-       }
+       }*/
     }
 
     function placeBet(betVal){
@@ -290,8 +292,8 @@
             let liNode = document.createElement("LI");
             let myImg = new Image(150,200);
             myImg.src = hand.pHand[i].cardImgLocation;
-            myImg.onclick = function(){ cardSelected(JSON.stringify(hand.pHand[i]))};
             myImg.id = String(hand.pHand[i].number) + String(hand.pHand[i].suit);
+            myImg.onclick = function(){ cardSelected(this.id)};
             liNode.appendChild(myImg);
             handTag.appendChild(liNode);
         }
@@ -334,7 +336,8 @@
                 var card = {
                     number: (i % 14) + 1,
                     suit: suitName[count],
-                    cardImgLocation: "/Deck/"+cardInitial+suitName[count]+ ".png"
+                    cardImgLocation: "/Deck/"+cardInitial+suitName[count]+ ".png",
+                    cardId: String(this.number) + this.suit
                 }
 
                 fullDeck.push(card);
