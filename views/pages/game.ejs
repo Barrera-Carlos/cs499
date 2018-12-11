@@ -6,10 +6,12 @@
 
 <body onload = "roomSelect()">
 
-<p id="testP"></p>
-<p id="totalBets">All players bets:</p>
 <p id="room name" >Room name: <%= roomId %> </p>
+<p id="testP">your trick bet for this round is: none</p>
+<p id="myNumber">You are player: </p>
+<p id="this round">You have won: 0 tricks this round</p>
 <p id="totalPoints">You have: 0 total points</p>
+<p id="totalBets">All players bets:</p>
 
 <ul id="trumpOnBoard" style="list-style-type: none"></ul>
 
@@ -41,6 +43,7 @@
     function addTrickPoints(winningUser) {
         if(playerName.playerNumber === winningUser){
             playerName.wonTricksInRound += 1;
+            document.getElementById("this round").innerHTML = "You have won: " + playerName.wonTricksInRound + "tricks this round" ;
         }
 
         if(hand.pHand.length > 0){
@@ -78,7 +81,7 @@
         }
 
         boardCards.suit = null;
-        boardCards.cardsOnBoard.length = 0;
+        boardCards.cardsOnBoard = [];
 
     }
     
@@ -102,8 +105,6 @@
                 winningNumber = boardCards.cardsOnBoard[i].card.number;
             }
         }
-
-        alert("player: " + winningUser + " won");
         clearBoard();
         addTrickPoints(winningUser);
     }
@@ -441,11 +442,10 @@
      * room number 1-4.
      */
     socket.on('join', (msg) => {
-        // msg should be tested if its in the correct range of 1-4;
-        //document.getElementById("testP").innerHTML = String(msg);
 
         createPlayer(Number(msg));
 
+        document.getElementById(myNumber).innerHTML = "You are player:" + playerName.playerNumber;
         if(playerName.playerNumber === 1)
             playerName.isDealer = true;
 
