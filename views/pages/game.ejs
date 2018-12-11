@@ -43,7 +43,7 @@
     function addTrickPoints(winningUser) {
         if(playerName.playerNumber === winningUser){
             playerName.wonTricksInRound += 1;
-            document.getElementById("this round").innerHTML = "You have won: " + playerName.wonTricksInRound + "tricks this round" ;
+            document.getElementById("this round").innerHTML = "You have won: " + playerName.wonTricksInRound + " tricks this round" ;
         }
 
         if(hand.pHand.length > 0){
@@ -54,11 +54,11 @@
             //give add total/bonus points
             if(playerName.wonTricksInRound === playerName.chosenTrickNumber ){
                 playerName.totalPoints += (10 + playerName.wonTricksInRound);
-                document.getElementById("totalPoints").innerHTML = "You have:" + playerName.totalPoints + "total points" ;
+                document.getElementById("totalPoints").innerHTML = "You have:" + playerName.totalPoints + " total points" ;
             }
             else {
                 playerName.totalPoints += playerName.wonTricksInRound;
-                document.getElementById("totalPoints").innerHTML = "You have:" + playerName.totalPoints + "total points" ;
+                document.getElementById("totalPoints").innerHTML = "You have:" + playerName.totalPoints + " total points" ;
             }
 
             if(playerName.isDealer){
@@ -529,6 +529,11 @@
        playerName.chosenTrickNumber = 0;
        playerName.wonTricksInRound = 0;
        document.getElementById('totalBets').innerText = "All players bets: ";
+
+        let trumpUl = document.getElementById("trumpOnBoard");
+        while(trumpUl.hasChildNodes()){
+            trumpUl.removeChild(trumpUl.firstChild);
+        }
 
        if(playerName.playerNumber === newDealer){
            playerName.isDealer = true;
