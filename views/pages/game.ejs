@@ -132,7 +132,9 @@
     function deleteCardFromHand(cardNumber, cardSuit) {
         let cardId = String(cardNumber) + cardSuit;
         let card = document.getElementById(cardId);
-        card.parentNode.removeChild(card);
+        //card.parentNode.removeChild(card);
+        let cardParent = card.parentNode;
+        cardParent.parentNode.removeChild(cardParent)
 
         for(let i = 0; i < hand.pHand.length; i++){
             let hadNumber = hand.pHand[i].number;
@@ -163,7 +165,7 @@
     }
 
     function cardSelected(playerNumber, cardString) {
-       if(playerName.turnToPlay && (boardCards.cardsOnBoard.length + 1) <= 4) {
+       if(playerName.turnToPlay && boardCards.cardsOnBoard.length + 1 <= 4) {
            playerName.turnToPlay = false;
 
            let cardChosen = JSON.parse(cardString);
