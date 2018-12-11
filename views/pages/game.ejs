@@ -166,36 +166,41 @@
 
     function cardSelected(cardString) {
        if(playerName.turnToPlay && boardCards.cardsOnBoard.length + 1 <= 4) {
-           playerName.turnToPlay = false;
+           if (cardString != null) {
+               playerName.turnToPlay = false;
 
-           alert("you chose" + cardString);
-           let cardChosen = JSON.parse(cardString);
+               alert("you chose " + cardString);
+               let cardChosen = JSON.parse(cardString);
 
 
-           if(!checkCard(cardChosen)){
-               alert("sorry the card that you have chosen does not follow suit");
-               playerName.turnToPlay = true;
+               if (!checkCard(cardChosen)) {
+                   alert("sorry the card that you have chosen does not follow suit");
+                   playerName.turnToPlay = true;
+               }
+               else {
+                   if (boardCards.cardsOnBoard.length === 0) {
+                       boardCards.suit = cardChosen.suit;
+                   }
+
+                   let cardAndSenderObj = {
+                       senderNumber: playerName.playerNumber,
+                       card: cardChosen
+                   }
+
+                   let cAndSString = JSON.stringify(cardAndSenderObj);
+
+                   deleteCardFromHand(cardChosen.number, cardChosen.suit);
+
+                   socket.emit('addingCardToBoard', cAndSString, roomName);
+                   if ((boardCards.cardsOnBoard.length + 1) < 4) {
+                       socket.emit('whoCanPlayCard', String((playerName.playerNumber % 4) + 1), roomName);
+                   }
+
+
+               }
            }
-           else {
-               if(boardCards.cardsOnBoard.length === 0){
-                   boardCards.suit = cardChosen.suit;
-               }
-
-               let cardAndSenderObj = {
-                   senderNumber: playerName.playerNumber,
-                   card: cardChosen
-               }
-
-               let cAndSString = JSON.stringify(cardAndSenderObj);
-
-               deleteCardFromHand(cardChosen.number, cardChosen.suit);
-
-               socket.emit('addingCardToBoard', cAndSString, roomName);
-               if((boardCards.cardsOnBoard.length + 1) < 4) {
-                   socket.emit('whoCanPlayCard', String((playerName.playerNumber % 4) + 1), roomName);
-               }
-
-
+           else{
+               alert("you chose " + cardString);
            }
        }
     }
