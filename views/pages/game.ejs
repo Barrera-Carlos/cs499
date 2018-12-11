@@ -166,7 +166,7 @@
 
         for(let i = 0; i < hand.pHand.length; i++){
             if(cardChosen.cardId === hand.pHand[i].cardId){
-                hand.pHand.splice(i, 1);
+                return hand.pHand.splice(i, 1);
             }
         }
     }
@@ -218,7 +218,7 @@
 
                let cAndSString = JSON.stringify(cardAndSenderObj);
 
-               deleteCardFromHand(cardChosen);
+               alert(deleteCardFromHand(cardChosen));
 
                socket.emit('addingCardToBoard', cAndSString, roomName);
                if ((boardCards.cardsOnBoard.length + 1) < 4)
