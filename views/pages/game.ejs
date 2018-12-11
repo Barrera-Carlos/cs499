@@ -164,11 +164,13 @@
          }
     }
 
-    function cardSelected(playerNumber, cardString) {
+    function cardSelected(cardString) {
        if(playerName.turnToPlay && boardCards.cardsOnBoard.length + 1 <= 4) {
            playerName.turnToPlay = false;
 
            let cardChosen = JSON.parse(cardString);
+
+           alert("you chose" + cardString);
 
 
            if(!checkCard(cardChosen)){
@@ -181,7 +183,7 @@
                }
 
                let cardAndSenderObj = {
-                   senderNumber: Number(playerNumber),
+                   senderNumber: playerName.playerNumber,
                    card: cardChosen
                }
 
@@ -284,7 +286,7 @@
             let liNode = document.createElement("LI");
             let myImg = new Image(150,200);
             myImg.src = hand.pHand[i].cardImgLocation;
-            myImg.onclick = function(){ cardSelected(String(playerName.playerNumber),JSON.stringify(hand.pHand[i]))};
+            myImg.onclick = function(){ cardSelected(JSON.stringify(hand.pHand[i]))};
             myImg.id = String(hand.pHand[i].number) + String(hand.pHand[i].suit);
             liNode.appendChild(myImg);
             handTag.appendChild(liNode);
