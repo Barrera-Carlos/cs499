@@ -8,7 +8,7 @@
 
 <p id="room name" >Room name: <%= roomId %> </p>
 <p id="myNumber">You are player: </p>
-<p id="testP">your trick bet for this round is: none</p>
+<p id="testP">your trick bet for this round is:</p>
 <p id="this round">You have won: 0 tricks this round</p>
 <p id="totalPoints">You have: 0 total points</p>
 <p id="totalBets">All players bets:</p>
@@ -213,17 +213,14 @@
 
                let cardAndSenderObj = {
                    senderNumber: playerName.playerNumber,
-                   card: cardChosen
+                   card: deleteCardFromHand(cardChosen)
                }
 
                let cAndSString = JSON.stringify(cardAndSenderObj);
-
-               alert(JSON.stringify(deleteCardFromHand(cardChosen)));
-
                socket.emit('addingCardToBoard', cAndSString, roomName);
+               alert(JSON.stringify());
                if ((boardCards.cardsOnBoard.length + 1) < 4)
                    socket.emit('whoCanPlayCard', String((playerName.playerNumber % 4) + 1), roomName);
-
                }
        }
     }
@@ -554,6 +551,7 @@
         playerName.chosenTrickNumber = 0;
         playerName.wonTricksInRound = 0;
         document.getElementById('totalBets').innerText = "All players bets: ";
+        document.getElementById('testP').innerText = "your trick bet for this round is:";
         document.getElementById("this round").innerHTML = "You have won: " + playerName.wonTricksInRound + " tricks this round" ;
 
         let trumpUl = document.getElementById("trumpOnBoard");
