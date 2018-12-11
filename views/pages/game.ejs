@@ -129,17 +129,14 @@
         }
     }
 
-    function deleteCardFromHand(cardNumber, cardSuit) {
-        let cardId = String(cardNumber) + cardSuit;
-        let card = document.getElementById(cardId);
+    function deleteCardFromHand(cardChosen) {
+        let card = document.getElementById(cardChosen.cardId);
         //card.parentNode.removeChild(card);
         let cardParent = card.parentNode;
         cardParent.parentNode.removeChild(cardParent)
 
         for(let i = 0; i < hand.pHand.length; i++){
-            let hadNumber = hand.pHand[i].number;
-            let handSuit = hand.pHand[i].suit;
-            if(cardNumber === hadNumber && cardSuit === handSuit){
+            if(cardChosen.cardId === hand.pHand[i].cardId){
                 hand.pHand.splice(i, 1);
             }
         }
@@ -166,45 +163,43 @@
 
     function cardSelected(cardId) {
         alert(cardId);
-        /*
        if(playerName.turnToPlay && boardCards.cardsOnBoard.length + 1 <= 4) {
-           if (cardString != null) {
-               playerName.turnToPlay = false;
+           playerName.turnToPlay = false;
 
-               alert("you chose " + cardString);
-               let cardChosen = JSON.parse(cardString);
-
-
-               if (!checkCard(cardChosen)) {
-                   alert("sorry the card that you have chosen does not follow suit");
-                   playerName.turnToPlay = true;
-               }
-               else {
-                   if (boardCards.cardsOnBoard.length === 0) {
-                       boardCards.suit = cardChosen.suit;
-                   }
-
-                   let cardAndSenderObj = {
-                       senderNumber: playerName.playerNumber,
-                       card: cardChosen
-                   }
-
-                   let cAndSString = JSON.stringify(cardAndSenderObj);
-
-                   deleteCardFromHand(cardChosen.number, cardChosen.suit);
-
-                   socket.emit('addingCardToBoard', cAndSString, roomName);
-                   if ((boardCards.cardsOnBoard.length + 1) < 4) {
-                       socket.emit('whoCanPlayCard', String((playerName.playerNumber % 4) + 1), roomName);
-                   }
-
-
+           let cardChosen;
+           for (let i = 0; i < hand.pHand.length; i++){
+               if(hand.pHand[i].cardId === cardId){
+                   cardChosen = hand.pHand[i];
                }
            }
-           else{
-               alert("you chose " + cardString);
+
+
+           if (!checkCard(cardChosen)) {
+               alert("sorry the card that you have chosen does not follow suit");
+               playerName.turnToPlay = true;
            }
-       }*/
+           else {
+               if (boardCards.cardsOnBoard.length === 0) {
+                   boardCards.suit = cardChosen.suit;
+               }
+
+               let cardAndSenderObj = {
+                   senderNumber: playerName.playerNumber,
+                   card: cardChosen
+               }
+
+               let cAndSString = JSON.stringify(cardAndSenderObj);
+
+               deleteCardFromHand(cardChosen);
+
+               socket.emit('addingCardToBoard', cAndSString, roomName);
+               if ((boardCards.cardsOnBoard.length + 1) < 4) {
+                   socket.emit('whoCanPlayCard', String((playerName.playerNumber % 4) + 1), roomName);
+               }
+
+
+               }
+       }
     }
 
     function placeBet(betVal){
@@ -292,7 +287,7 @@
             let liNode = document.createElement("LI");
             let myImg = new Image(150,200);
             myImg.src = hand.pHand[i].cardImgLocation;
-            myImg.id = String(hand.pHand[i].number) + String(hand.pHand[i].suit);
+            myImg.id = hand.pHand[i].cardId;
             myImg.onclick = function(){ cardSelected(this.id)};
             liNode.appendChild(myImg);
             handTag.appendChild(liNode);
