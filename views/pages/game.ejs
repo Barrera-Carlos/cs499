@@ -203,8 +203,6 @@
                     cardChosen = hand.pHand[i];
                 }
             }
-
-
             if (!checkCard(cardChosen)) {
                 alert("sorry the card that you have chosen does not follow suit");
                 playerName.turnToPlay = true;
@@ -215,9 +213,10 @@
                     boardCards.suit = cardChosen.suit;
                 }
 
+                let removedCard = deleteCardFromHand(cardChosen);
                 let cardAndSenderObj = {
                     senderNumber: playerName.playerNumber,
-                    card: deleteCardFromHand(cardChosen)
+                    card: removedCard
                 }
 
                 let cAndSString = JSON.stringify(cardAndSenderObj);
