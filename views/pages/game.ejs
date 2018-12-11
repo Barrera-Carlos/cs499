@@ -153,6 +153,8 @@
         boardTag.appendChild(liNode);
 
         boardCards.cardsOnBoard.push(cardObj);
+        deleteCardFromHand(cardObj);
+
         if(boardCards.cardsOnBoard.length === 4){
             whoWonTrick();
         }
@@ -163,14 +165,14 @@
     }
 
     function deleteCardFromHand(cardChosen) {
-        let card = document.getElementById(cardChosen.cardId);
-        //card.parentNode.removeChild(card);
-        let cardParent = card.parentNode;
-        cardParent.parentNode.removeChild(cardParent)
+
 
         for(let i = 0; i < hand.pHand.length; i++){
             if(cardChosen.cardId === hand.pHand[i].cardId){
-                return hand.pHand.splice(i, 1);
+                let card = document.getElementById(cardChosen.cardId);
+                let cardParent = card.parentNode;
+                cardParent.parentNode.removeChild(cardParent)
+                hand.pHand.splice(i, 1);
             }
         }
     }
@@ -213,10 +215,9 @@
                     boardCards.suit = cardChosen.suit;
                 }
 
-                let removedCard = deleteCardFromHand(cardChosen);
                 let cardAndSenderObj = {
                     senderNumber: playerName.playerNumber,
-                    card: removedCard
+                    card: cardChosen
                 }
 
                 let cAndSString = JSON.stringify(cardAndSenderObj);
