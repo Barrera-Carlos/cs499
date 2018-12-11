@@ -71,6 +71,10 @@ io.on('connection', function (socket) {
     socket.on('newRound', (roomName, nextDealerNumberString, nextRoundNumberString) => {
        io.in(roomName).emit('newRound', nextDealerNumberString, nextRoundNumberString);
     });
+
+    socket.on('end', (userTallyString, roomName) => {
+       socket.to(roomName).emit('end', userTallyString);
+    });
 });
 
 //app.listen(PORT, () => console.log(`Listening on ${ PORT }`));

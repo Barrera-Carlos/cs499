@@ -29,6 +29,7 @@
 <script>
 
     const socket = io();
+    let finalTally = [];
     let playerName;
     let roomName
     let trumpCard;
@@ -38,6 +39,20 @@
     let boardCards = {
         suit: null,
         cardsOnBoard: []
+    }
+
+    function endGame() {
+        let winnerNumber = finalTally[0].userId
+        let winnerFinalPoints = finalTally[0].userTotal;
+
+        for( let i = 1; i < finalTally.length; i++){
+            if(finalTally[i].userTotal > winnerFinalPoints){
+                winnerNumber = finalTally[i].userId;
+                winnerFinalPoints = finalTally[i].userTotal;
+            }
+        }
+
+        alert("player: " + winnerNumber + "won with " + winnerFinalPoints + "points");
     }
 
     function addTrickPoints(winningUser) {
@@ -69,7 +84,21 @@
 
         }
         else{
-            alert("you have finished the game!");
+            if(playerName.wonTricksInRound === playerName.chosenTrickNumber ){
+                playerName.totalPoints += (10 + playerName.wonTricksInRound);
+            }
+            else {
+                playerName.totalPoints += playerName.wonTricksInRound;
+            }
+
+            let userTally = {
+                userId: playerName.playerNumber,
+                userTotal: playerName.totalPoints
+            }
+
+            finalTally.push(userTally)
+            let userTallString = JSON.stringify(userTally);
+            socket.emit('end',userTallString, roomName);
         }
 
     }
@@ -525,10 +554,11 @@
 
     socket.on('newRound', (nextDealerNumberString, nextRoundNumberString) =>{
         let newDealer = Number(nextDealerNumberString);
-       round = Number(nextRoundNumberString);
-       playerName.chosenTrickNumber = 0;
-       playerName.wonTricksInRound = 0;
-       document.getElementById('totalBets').innerText = "All players bets: ";
+        round = Number(nextRoundNumberString);
+        playerName.chosenTrickNumber = 0;
+        playerName.wonTricksInRound = 0;
+        document.getElementById('totalBets').innerText = "All players bets: ";
+        document.getElementById("this round").innerHTML = "You have won: " + playerName.wonTricksInRound + " tricks this round" ;
 
         let trumpUl = document.getElementById("trumpOnBoard");
         while(trumpUl.hasChildNodes()){
@@ -539,6 +569,15 @@
            playerName.isDealer = true;
            shuffleDeck()
            deal(playerName.playerNumber);
+       }
+
+    });
+
+    socket.on('end', (userTallyString) => {
+       let userTallyObj = JSON.parse(userTallyString);
+       finalTally.push(userTallyObj);
+       if(finalTally.length === 4){
+           endGame();
        }
 
     });
