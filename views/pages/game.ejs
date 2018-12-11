@@ -218,7 +218,7 @@
 
                let cAndSString = JSON.stringify(cardAndSenderObj);
 
-               alert(deleteCardFromHand(cardChosen));
+               alert(JSON.stringify(deleteCardFromHand(cardChosen)));
 
                socket.emit('addingCardToBoard', cAndSString, roomName);
                if ((boardCards.cardsOnBoard.length + 1) < 4)
