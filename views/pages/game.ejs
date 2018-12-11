@@ -163,7 +163,8 @@
 
     function cardSelected(cardId) {
         alert(cardId);
-       if(playerName.turnToPlay && boardCards.cardsOnBoard.length + 1 <= 4) {
+
+       /*if(playerName.turnToPlay && boardCards.cardsOnBoard.length + 1 <= 4) {
            playerName.turnToPlay = false;
 
            let cardChosen;
@@ -199,7 +200,7 @@
 
 
                }
-       }
+       }*/
     }
 
     function placeBet(betVal){
@@ -332,7 +333,7 @@
                     number: (i % 14) + 1,
                     suit: suitName[count],
                     cardImgLocation: "/Deck/"+cardInitial+suitName[count]+ ".png",
-                    cardId: String(this.number) + this.suit
+                    cardId: String((i % 14) + 1) + suitName[count]
                 }
 
                 fullDeck.push(card);
