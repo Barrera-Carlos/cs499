@@ -40,6 +40,47 @@
         cardsOnBoard: []
     }
 
+    function addTrickPoints(winningUser) {
+        if(playerName.playerNumber === winningUser){
+            playerName.wonTricksInRound += 1;
+        }
+
+        if(hand.pHand.length > 0){
+            if(playerName.isDealer)
+                socket.emit("whoCanPlayCard", String(winningUser), roomName);
+        }
+        else if (round > 1){
+            //give add total/bonus points
+            if(playerName.wonTricksInRound === playerName.chosenTrickNumber ){
+                playerName.totalPoints += (10 + playerName.wonTricksInRound);
+            }
+            else
+                playerName.totalPoints += playerName.wonTricksInRound;
+
+            if(playerName.isDealer){
+                playerName.isDealer = false;
+                let nextDealr = (playerName.playerNumber % 4) + 1
+                socket.emit("newRound", roomName, String(nextDealr), String(round - 1));
+            }
+
+        }
+        else{
+            alert("you have finished the game!");
+        }
+
+    }
+
+    function clearBoard() {
+        let deckUl = document.getElementById("cardOnBoard");
+        while(deckUl.hasChildNodes()){
+            deckUl.removeChild(deckUl.firstChild);
+        }
+
+        boardCards.suit = null;
+        boardCards.cardsOnBoard.length = 0;
+
+    }
+    
     function whoWonTrick() {
         let winningUser = boardCards.cardsOnBoard[0].senderNumber;
         let winningSuit = boardCards.suit;
@@ -62,6 +103,8 @@
         }
 
         alert("player: " + winningUser + " won");
+        clearBoard();
+        addTrickPoints(winningUser);
     }
 
     function addCardToBoard(cardAndSenderString) {
@@ -469,6 +512,21 @@
 
     socket.on('addingCardToBoard', (cardAndSenderString) => {
         addCardToBoard(cardAndSenderString);
+    });
+
+    socket.on('newRound', (nextDealerNumberString, nextRoundNumberString) =>{
+        let newDealer = Number(nextDealerNumberString);
+       round = Number(nextRoundNumberString);
+       playerName.chosenTrickNumber = 0;
+       playerName.wonTricksInRound = 0;
+       document.getElementById('totalBets').innerText = "All players bets: ";
+
+       if(playerName.playerNumber === newDealer){
+           playerName.isDealer = true;
+           shuffleDeck()
+           deal(playerName.playerNumber);
+       }
+
     });
 
 

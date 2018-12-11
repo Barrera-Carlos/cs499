@@ -61,11 +61,15 @@ io.on('connection', function (socket) {
     });
 
     socket.on('whoCanPlayCard', (userWhoCanBet, roomName) => {
-        socket.to(roomName).emit('whoCanPlayCard', userWhoCanBet);
+        io.in(roomName).emit('whoCanPlayCard', userWhoCanBet);
     });
 
     socket.on('addingCardToBoard', (cardAndSenderString, roomName) => {
         io.in(roomName).emit('addingCardToBoard', cardAndSenderString);
+    });
+
+    socket.on('newRound', (roomName, nextDealerNumberString, nextRoundNumberString) => {
+       io.in(roomName).emit('newRound', nextDealerNumberString, nextRoundNumberString);
     });
 });
 
