@@ -156,6 +156,10 @@
         if(boardCards.cardsOnBoard.length === 4){
             whoWonTrick();
         }
+
+        if (boardCards.cardsOnBoard.length < 4 && playerName.isDealer){
+            socket.emit('whoCanPlayCard', String((cardObj.senderNumber % 4) + 1), roomName);
+        }
     }
 
     function deleteCardFromHand(cardChosen) {
@@ -191,38 +195,37 @@
     }
 
     function cardSelected(cardId) {
-       if(playerName.turnToPlay && boardCards.cardsOnBoard.length + 1 <= 4) {
+        if (playerName.turnToPlay && boardCards.cardsOnBoard.length + 1 <= 4) {
 
-           let cardChosen;
-           for (let i = 0; i < hand.pHand.length; i++){
-               if(hand.pHand[i].cardId === cardId){
-                   cardChosen = hand.pHand[i];
-               }
-           }
+            let cardChosen;
+            for (let i = 0; i < hand.pHand.length; i++) {
+                if (hand.pHand[i].cardId === cardId) {
+                    cardChosen = hand.pHand[i];
+                }
+            }
 
 
-           if (!checkCard(cardChosen)) {
-               alert("sorry the card that you have chosen does not follow suit");
-               playerName.turnToPlay = true;
-           }
-           else {
-               playerName.turnToPlay = false;
-               if (boardCards.cardsOnBoard.length === 0) {
-                   boardCards.suit = cardChosen.suit;
-               }
+            if (!checkCard(cardChosen)) {
+                alert("sorry the card that you have chosen does not follow suit");
+                playerName.turnToPlay = true;
+            }
+            else {
+                playerName.turnToPlay = false;
+                if (boardCards.cardsOnBoard.length === 0) {
+                    boardCards.suit = cardChosen.suit;
+                }
 
-               let cardAndSenderObj = {
-                   senderNumber: playerName.playerNumber,
-                   card: deleteCardFromHand(cardChosen)
-               }
+                let cardAndSenderObj = {
+                    senderNumber: playerName.playerNumber,
+                    card: deleteCardFromHand(cardChosen)
+                }
 
-               let cAndSString = JSON.stringify(cardAndSenderObj);
-               socket.emit('addingCardToBoard', cAndSString, roomName);
-               alert(JSON.stringify());
-               if ((boardCards.cardsOnBoard.length + 1) < 4)
-                   socket.emit('whoCanPlayCard', String((playerName.playerNumber % 4) + 1), roomName);
-               }
-       }
+                let cAndSString = JSON.stringify(cardAndSenderObj);
+                socket.emit('addingCardToBoard', cAndSString, roomName);
+
+
+            }
+        }
     }
 
     function placeBet(betVal){
@@ -569,10 +572,11 @@
 
     socket.on('end', (userTallyString) => {
        let userTallyObj = JSON.parse(userTallyString);
+
        finalTally.push(userTallyObj);
-       if(finalTally.length === 4){
+
+       if(finalTally.length === 4)
            endGame();
-       }
 
     });
 
