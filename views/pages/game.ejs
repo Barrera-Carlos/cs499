@@ -7,8 +7,8 @@
 <body onload = "roomSelect()">
 
 <p id="room name" >Room name: <%= roomId %> </p>
-<p id="testP">your trick bet for this round is: none</p>
 <p id="myNumber">You are player: </p>
+<p id="testP">your trick bet for this round is: none</p>
 <p id="this round">You have won: 0 tricks this round</p>
 <p id="totalPoints">You have: 0 total points</p>
 <p id="totalBets">All players bets:</p>
@@ -191,10 +191,7 @@
     }
 
     function cardSelected(cardId) {
-        alert(cardId);
-
        if(playerName.turnToPlay && boardCards.cardsOnBoard.length + 1 <= 4) {
-           playerName.turnToPlay = false;
 
            let cardChosen;
            for (let i = 0; i < hand.pHand.length; i++){
@@ -209,6 +206,7 @@
                playerName.turnToPlay = true;
            }
            else {
+               playerName.turnToPlay = false;
                if (boardCards.cardsOnBoard.length === 0) {
                    boardCards.suit = cardChosen.suit;
                }
@@ -223,10 +221,8 @@
                deleteCardFromHand(cardChosen);
 
                socket.emit('addingCardToBoard', cAndSString, roomName);
-               if ((boardCards.cardsOnBoard.length + 1) < 4) {
+               if ((boardCards.cardsOnBoard.length + 1) < 4)
                    socket.emit('whoCanPlayCard', String((playerName.playerNumber % 4) + 1), roomName);
-               }
-
 
                }
        }
