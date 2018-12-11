@@ -168,9 +168,8 @@
        if(playerName.turnToPlay && boardCards.cardsOnBoard.length + 1 <= 4) {
            playerName.turnToPlay = false;
 
-           let cardChosen = JSON.parse(cardString);
-
            alert("you chose" + cardString);
+           let cardChosen = JSON.parse(cardString);
 
 
            if(!checkCard(cardChosen)){
