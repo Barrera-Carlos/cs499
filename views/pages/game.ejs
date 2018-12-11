@@ -445,9 +445,10 @@
 
         createPlayer(Number(msg));
 
-        document.getElementById(myNumber).innerHTML = "You are player:" + playerName.playerNumber;
         if(playerName.playerNumber === 1)
             playerName.isDealer = true;
+
+        document.getElementById('myNumber').innerHTML = "You are player:" + playerName.playerNumber;
 
         createDeck();
         shuffleDeck();
