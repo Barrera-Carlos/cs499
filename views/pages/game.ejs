@@ -145,7 +145,7 @@
                 let card = document.getElementById(cardChosen.cardId);
                 let cardParent = card.parentNode;
                 cardParent.parentNode.removeChild(cardParent)
-               hand.pHand.splice(i, 1);
+                hand.pHand.splice(i, 1);
             }
         }
     }
@@ -199,13 +199,17 @@
     function cardSelected(cardId) {
         if (playerName.turnToPlay && boardCards.cardsOnBoard.length < 4) {
 
-            let cardChosen = null;
-            for (let i = 0; i < hand.pHand.length; i++) {
+            let cardChosen = hand.pHand.find( (card) => {
+                return card.cardId === cardId;
+            })
+
+            alert(JSON.stringify(cardChosen));
+            /*for (let i = 0; i < hand.pHand.length; i++) {
                 if (hand.pHand[i].cardId === cardId) {
                     cardChosen = hand.pHand.splice(i, 0);
                     alert(JSON.stringify(cardChosen));
                 }
-            }
+            }*/
 
 
             /*if (cardChosen != null && checkCard(cardChosen)) {
@@ -224,8 +228,8 @@
                 let cAndSString = JSON.stringify(cardAndSenderObj);
                 socket.emit('addingCardToBoard', cAndSString, roomName);
 
-            }
-        }*/
+            }*/
+        }
     }
 
     function placeBet(betVal){
