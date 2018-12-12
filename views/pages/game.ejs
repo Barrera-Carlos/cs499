@@ -138,7 +138,6 @@
         addTrickPoints(winningUser);
     }
 
-
     function deleteCardFromHand(cardChosen) {
 
         for(let i = 0; i < hand.pHand.length; i++){
@@ -167,6 +166,7 @@
         boardCards.cardsOnBoard.push(cardObj);
 
         if(cardObj.senderNumber === playerName.playerNumber){
+            alert("o my");
             deleteCardFromHand(cardObj.card);
         }
 
