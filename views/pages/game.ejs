@@ -140,8 +140,7 @@
 
 
     function deleteCardFromHand(cardChosen) {
-
-
+        alert("is anybody out there");
         for(let i = 0; i < hand.pHand.length; i++){
             if(cardChosen.cardId === hand.pHand[i].cardId){
                 let card = document.getElementById(cardChosen.cardId);
@@ -168,7 +167,7 @@
         boardCards.cardsOnBoard.push(cardObj);
 
         if(cardObj.senderNumber === playerName.userNumber){
-            deleteCardFromHand(cardObj)
+            deleteCardFromHand(cardObj);
         }
         if(boardCards.cardsOnBoard.length === 4){
             whoWonTrick();
