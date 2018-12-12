@@ -165,9 +165,7 @@
 
         boardCards.cardsOnBoard.push(cardObj);
 
-        if(cardObj.senderNumber === playerName.playerNumber){
-            deleteCardFromHand(cardObj.card);
-        }
+
 
         if(boardCards.cardsOnBoard.length === 4){
             whoWonTrick();
@@ -201,7 +199,7 @@
     function cardSelected(cardId) {
         if (playerName.turnToPlay && boardCards.cardsOnBoard.length + 1 <= 4) {
 
-            let cardChosen;
+            let cardChosen = null;
             for (let i = 0; i < hand.pHand.length; i++) {
                 if (hand.pHand[i].cardId === cardId) {
                     cardChosen = hand.pHand[i];
@@ -211,7 +209,7 @@
                 alert("sorry the card that you have chosen does not follow suit");
                 playerName.turnToPlay = true;
             }
-            else {
+            else if (cardChosen != null) {
                 playerName.turnToPlay = false;
                 if (boardCards.cardsOnBoard.length === 0) {
                     boardCards.suit = cardChosen.suit;
@@ -222,6 +220,8 @@
                     card: cardChosen
                 }
 
+
+                deleteCardFromHand(cardChosen);
                 let cAndSString = JSON.stringify(cardAndSenderObj);
                 socket.emit('addingCardToBoard', cAndSString, roomName);
 
