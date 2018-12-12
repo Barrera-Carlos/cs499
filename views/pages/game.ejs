@@ -219,11 +219,11 @@
                 let cAndSString = JSON.stringify(cardAndSenderObj);
                 socket.emit('addingCardToBoard', cAndSString, roomName);
 
+                deleteCardFromHand(cardAndSenderObj);
+
                 if (boardCards.cardsOnBoard.length < 4){
                     socket.emit('whoCanPlayCard', (String(playerName.playerNumber % 4) + 1), roomName);
                 }
-
-                deleteCardFromHand(cardAndSenderObj);
 
             }
         }
