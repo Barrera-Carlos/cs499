@@ -223,7 +223,7 @@
 
                 if (boardCards.cardsOnBoard.length < 4){
                     alert("we are calling who ever can play")
-                    socket.emit('whoCanPlayCard', (String(playerName.playerNumber % 4) + 1), roomName);
+                    socket.emit('whoCanPlayCard', String((playerName.playerNumber % 4)+ 1) , roomName);
                 }
 
             }
