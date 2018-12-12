@@ -166,9 +166,7 @@
 
         boardCards.cardsOnBoard.push(cardObj);
 
-        alert(String(cardObj.senderNumber) + ' ' + String(playerName.userNumber));
-
-        if(cardObj.senderNumber === playerName.userNumber){
+        if(cardObj.senderNumber === playerName.playerNumber){
             deleteCardFromHand(cardObj.card);
         }
 
