@@ -145,7 +145,7 @@
                 let card = document.getElementById(cardChosen.cardId);
                 let cardParent = card.parentNode;
                 cardParent.parentNode.removeChild(cardParent)
-                alert(String(hand.pHand.splice(i, 1)));
+                alert(JSON.stringify(hand.pHand.splice(i, 1)));
             }
         }
     }
