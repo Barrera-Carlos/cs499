@@ -217,9 +217,9 @@
                     card: cardChosen
                 }
 
-
-                deleteCardFromHand(cardChosen);
                 let cAndSString = JSON.stringify(cardAndSenderObj);
+                deleteCardFromHand(cardChosen);
+
                 socket.emit('addingCardToBoard', cAndSString, roomName);
 
             }
