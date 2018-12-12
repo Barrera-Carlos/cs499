@@ -197,7 +197,7 @@
     }
 
     function cardSelected(cardId) {
-        if (playerName.turnToPlay && boardCards.cardsOnBoard.length + 1 <= 4) {
+        if (playerName.turnToPlay && boardCards.cardsOnBoard.length < 4) {
 
             let cardChosen = null;
             for (let i = 0; i < hand.pHand.length; i++) {
@@ -205,11 +205,8 @@
                     cardChosen = hand.pHand[i];
                 }
             }
-            if (!checkCard(cardChosen)) {
-                alert("sorry the card that you have chosen does not follow suit");
-                playerName.turnToPlay = true;
-            }
-            else if (cardChosen != null) {
+
+            if (cardChosen != null && checkCard(cardChosen)) {
                 playerName.turnToPlay = false;
                 if (boardCards.cardsOnBoard.length === 0) {
                     boardCards.suit = cardChosen.suit;
