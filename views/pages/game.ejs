@@ -203,16 +203,7 @@
                 return card.cardId === cardId;
             })
 
-            alert(JSON.stringify(cardChosen));
-            /*for (let i = 0; i < hand.pHand.length; i++) {
-                if (hand.pHand[i].cardId === cardId) {
-                    cardChosen = hand.pHand.splice(i, 0);
-                    alert(JSON.stringify(cardChosen));
-                }
-            }*/
-
-
-            /*if (cardChosen != null && checkCard(cardChosen)) {
+            if (cardChosen != null && checkCard(cardChosen)) {
                 playerName.turnToPlay = false;
                 if (boardCards.cardsOnBoard.length === 0) {
                     boardCards.suit = cardChosen.suit;
@@ -228,7 +219,7 @@
                 let cAndSString = JSON.stringify(cardAndSenderObj);
                 socket.emit('addingCardToBoard', cAndSString, roomName);
 
-            }*/
+            }
         }
     }
 
