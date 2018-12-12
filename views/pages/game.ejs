@@ -138,8 +138,7 @@
         addTrickPoints(winningUser);
     }
 
-    function addCardToBoard(cardAndSenderString) {
-        let cardObj = JSON.parse(cardAndSenderString);
+    function addCardToBoard(cardObj) {
         if(boardCards.cardsOnBoard.length === 0){
             boardCards.suit = cardObj.card.suit;
         }
@@ -153,15 +152,11 @@
         boardTag.appendChild(liNode);
 
         boardCards.cardsOnBoard.push(cardObj);
-        deleteCardFromHand(cardObj);
 
         if(boardCards.cardsOnBoard.length === 4){
             whoWonTrick();
         }
 
-        if (boardCards.cardsOnBoard.length < 4 && playerName.isDealer){
-            socket.emit('whoCanPlayCard', String((cardObj.senderNumber % 4) + 1), roomName);
-        }
     }
 
     function deleteCardFromHand(cardChosen) {
@@ -220,9 +215,15 @@
                     card: cardChosen
                 }
 
+                addCardToBoard(cardAndSenderObj);
                 let cAndSString = JSON.stringify(cardAndSenderObj);
                 socket.emit('addingCardToBoard', cAndSString, roomName);
 
+                if (boardCards.cardsOnBoard.length < 4 && playerName.isDealer){
+                    socket.emit('whoCanPlayCard', (String(playerName.playerNumber % 4) + 1), roomName);
+                }
+
+                deleteCardFromHand(cardAndSenderObj);
 
             }
         }
@@ -545,7 +546,8 @@
     });
 
     socket.on('addingCardToBoard', (cardAndSenderString) => {
-        addCardToBoard(cardAndSenderString);
+        let cardObj = JSON.parse(cardAndSenderString);
+        addCardToBoard(cardObj);
     });
 
     socket.on('newRound', (nextDealerNumberString, nextRoundNumberString) =>{
