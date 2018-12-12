@@ -138,18 +138,6 @@
         addTrickPoints(winningUser);
     }
 
-    function deleteCardFromHand(cardChosen) {
-
-        for(let i = 0; i < hand.pHand.length; i++){
-            if(cardChosen.cardId === hand.pHand[i].cardId){
-                let card = document.getElementById(cardChosen.cardId);
-                let cardParent = card.parentNode;
-                cardParent.parentNode.removeChild(cardParent)
-                //hand.pHand.splice(i, 1);
-            }
-        }
-    }
-
     function addCardToBoard(cardObj) {
         if(boardCards.cardsOnBoard.length === 0){
             boardCards.suit = cardObj.card.suit;
@@ -175,6 +163,24 @@
                 socket.emit('whoCanPlayCard', String((cardObj.senderNumber  % 4) + 1), roomName);
         }
 
+    }
+
+    function deleteCardFromHadArr(cardChosen) {
+        for(let i = 0; i < hand.pHand.length; i++){
+            if(cardChosen.cardId === hand.pHand[i].cardId){
+                return hand.pHand.splice(i,1);
+            }
+        }
+    }
+
+    function removeCardFromSite(cardChosen) {
+        for(let i = 0; i < hand.pHand.length; i++){
+            if(cardChosen.cardId === hand.pHand[i].cardId){
+                let card = document.getElementById(cardChosen.cardId);
+                let cardParent = card.parentNode;
+                cardParent.parentNode.removeChild(cardParent);
+            }
+        }
     }
 
     function checkCard(chosenCard){
@@ -218,7 +224,8 @@
                 }
 
                 let cAndSString = JSON.stringify(cardAndSenderObj);
-                deleteCardFromHand(cardChosen);
+                removeCardFromSite(cardChosen);
+                alert(JSON.stringify(deleteCardFromHadArr(cardChosen)));
 
                 socket.emit('addingCardToBoard', cAndSString, roomName);
 
