@@ -138,6 +138,20 @@
         addTrickPoints(winningUser);
     }
 
+
+    function deleteCardFromHand(cardChosen) {
+
+
+        for(let i = 0; i < hand.pHand.length; i++){
+            if(cardChosen.cardId === hand.pHand[i].cardId){
+                let card = document.getElementById(cardChosen.cardId);
+                let cardParent = card.parentNode;
+                cardParent.parentNode.removeChild(cardParent)
+                hand.pHand.splice(i, 1);
+            }
+        }
+    }
+
     function addCardToBoard(cardObj) {
         if(boardCards.cardsOnBoard.length === 0){
             boardCards.suit = cardObj.card.suit;
@@ -153,23 +167,17 @@
 
         boardCards.cardsOnBoard.push(cardObj);
 
+        if(cardObj.senderNumber === playerName.userNumber){
+            deleteCardFromHand(cardObj)
+        }
         if(boardCards.cardsOnBoard.length === 4){
             whoWonTrick();
         }
-
-    }
-
-    function deleteCardFromHand(cardChosen) {
-
-
-        for(let i = 0; i < hand.pHand.length; i++){
-            if(cardChosen.cardId === hand.pHand[i].cardId){
-                let card = document.getElementById(cardChosen.cardId);
-                let cardParent = card.parentNode;
-                cardParent.parentNode.removeChild(cardParent)
-                hand.pHand.splice(i, 1);
-            }
+        else{
+            if(playerName.isDealer)
+                socket.emit('whoCanPlayCard', String((cardObj.senderNumber  % 4) + 1), roomName);
         }
+
     }
 
     function checkCard(chosenCard){
@@ -215,16 +223,8 @@
                     card: cardChosen
                 }
 
-                addCardToBoard(cardAndSenderObj);
                 let cAndSString = JSON.stringify(cardAndSenderObj);
-
-                if (boardCards.cardsOnBoard.length < 4){
-                    socket.emit('whoCanPlayCard', String((playerName.playerNumber % 4)+ 1) , roomName);
-                }
-
                 socket.emit('addingCardToBoard', cAndSString, roomName);
-
-                deleteCardFromHand(cardAndSenderObj);
 
             }
         }

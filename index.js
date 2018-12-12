@@ -65,7 +65,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on('addingCardToBoard', (cardAndSenderString, roomName) => {
-        socket.to(roomName).emit('addingCardToBoard', cardAndSenderString);
+        io.in(roomName).emit('addingCardToBoard', cardAndSenderString);
     });
 
     socket.on('newRound', (roomName, nextDealerNumberString, nextRoundNumberString) => {
