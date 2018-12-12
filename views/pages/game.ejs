@@ -203,7 +203,10 @@
                 return card.cardId === cardId;
             })
 
-            if (cardChosen != null && checkCard(cardChosen)) {
+            if(cardChosen != null && !checkCard(cardChosen)){
+                alert("the card that you have chosen does not follow suit")
+            }
+            else if (cardChosen != null && checkCard(cardChosen)) {
                 playerName.turnToPlay = false;
                 if (boardCards.cardsOnBoard.length === 0) {
                     boardCards.suit = cardChosen.suit;
@@ -215,7 +218,7 @@
                 }
 
 
-                alert(JSON.stringify(deleteCardFromHand(cardChosen)));
+                deleteCardFromHand(cardChosen);
                 let cAndSString = JSON.stringify(cardAndSenderObj);
                 socket.emit('addingCardToBoard', cAndSString, roomName);
 
