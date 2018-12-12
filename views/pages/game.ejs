@@ -586,6 +586,11 @@
 
     });
 
+    socket.on('disconnect', () => {
+        socket.open();
+        socket.emit('joinRoom', roomName);
+    })
+
 
 </script>
 

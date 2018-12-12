@@ -75,6 +75,14 @@ io.on('connection', function (socket) {
     socket.on('end', (userTallyString, roomName) => {
        socket.to(roomName).emit('end', userTallyString);
     });
+
+    socket.on('joinRoom', (roomName) => {
+        socket.join(roomName);
+    });
+
+    socket.on('disconnect', () => {
+        console.log("user disconnected");
+    })
 });
 
 //app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
