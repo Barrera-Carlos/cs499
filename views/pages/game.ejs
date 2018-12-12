@@ -166,10 +166,12 @@
 
         boardCards.cardsOnBoard.push(cardObj);
 
+        alert(String(cardObj.senderNumber === playerName.userNumber));
+
         if(cardObj.senderNumber === playerName.userNumber){
-            alert("is anybody out there");
             deleteCardFromHand(cardObj.card);
         }
+
         if(boardCards.cardsOnBoard.length === 4){
             whoWonTrick();
         }
