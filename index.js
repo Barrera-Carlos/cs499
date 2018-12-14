@@ -33,12 +33,17 @@ io.on('connection', function (socket) {
      * socket.join joins a room.
      */
     socket.on('join', function(msg){
-       socket.join(msg);
-       let roomSize = io.nsps['/'].adapter.rooms[msg].length;
-       console.log("the user has connected to room:" + msg);
-       console.log("you are the: " + roomSize + " client");
 
-        socket.emit('join',roomSize);
+       let roomSize = io.nsps['/'].adapter.rooms[msg].length;
+       if(roomSize < 4) {
+           socket.join(msg);
+           console.log("the user has connected to room:" + msg);
+           socket.emit('join', roomSize);
+       }
+       else {
+           let fullMsg = "sorry, room " + msg + " is full";
+           socket.emit('full room', fullMsg);
+       }
     });
 
     socket.on('startDeal', (roomName, logString) => {
