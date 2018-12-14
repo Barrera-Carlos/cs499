@@ -34,16 +34,11 @@ io.on('connection', function (socket) {
      */
     socket.on('join', function(msg){
 
+        socket.join(msg);
        let roomSize = io.nsps['/'].adapter.rooms[msg].length;
-       if(roomSize < 4) {
-           socket.join(msg);
-           console.log("the user has connected to room:" + msg);
-           socket.emit('join', roomSize);
-       }
-       else {
-           let fullMsg = "sorry, room " + msg + " is full";
-           socket.emit('full room', fullMsg);
-       }
+       console.log("the user has connected to room:" + msg);
+       socket.emit('join', roomSize);
+
     });
 
     socket.on('startDeal', (roomName, logString) => {
@@ -87,7 +82,7 @@ io.on('connection', function (socket) {
 
     socket.on('disconnect', () => {
         console.log("user disconnected");
-    })
+    });
 });
 
 //app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
