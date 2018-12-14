@@ -36,7 +36,7 @@ io.on('connection', function (socket) {
 
         socket.join(msg);
        let roomSize = io.nsps['/'].adapter.rooms[msg].length;
-       if(roomSize < 4) {
+       if(roomSize <= 4) {
            console.log("the user has connected to room:" + msg);
            socket.emit('join', roomSize);
        }
